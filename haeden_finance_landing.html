@@ -15,32 +15,33 @@
   .filled{font-variation-settings:'FILL' 1,'wght' 400,'GRAD' 0,'opsz' 24}
   html{scroll-behavior:smooth}
   .modal-bd{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;display:flex;align-items:center;justify-content:center;padding:1.5rem}
-  .cms-panel{position:fixed;top:0;right:-520px;width:520px;height:100vh;background:#fff;z-index:300;box-shadow:-8px 0 40px rgba(0,0,0,.18);transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
+  .cms-panel{position:fixed;top:0;right:-540px;width:540px;height:100vh;background:#fff;z-index:300;box-shadow:-8px 0 40px rgba(0,0,0,.18);transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
   .cms-panel.open{right:0}
-  @media(max-width:540px){.cms-panel{width:100vw;right:-100vw}}
-  .tab-btn{padding:.6rem 1.1rem;font-weight:700;font-size:.75rem;text-transform:uppercase;letter-spacing:.08em;border-bottom:3px solid transparent;color:#5A5A6A;white-space:nowrap;transition:all .2s}
+  @media(max-width:560px){.cms-panel{width:100vw;right:-100vw}}
+  .tab-btn{padding:.6rem 1rem;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;border-bottom:3px solid transparent;color:#5A5A6A;white-space:nowrap;transition:all .2s}
   .tab-btn.active{color:#0D1B2A;border-color:#F5C200}
   .svc-theme-gold{background:#F5C200;color:#0D1B2A}
-  .svc-theme-navy{background:#0D1B2A;color:#fff}
   .svc-theme-white{background:#fff;color:#0D1B2A}
+  .field-label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5A5A6A;margin-bottom:.4rem}
+  .field-input{width:100%;border:1px solid #F0EAD8;border-radius:.5rem;padding:.6rem 1rem;font-size:.875rem;outline:none;transition:box-shadow .2s}
+  .field-input:focus{box-shadow:0 0 0 2px #F5C200}
+  textarea.field-input{resize:vertical}
+  .upload-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;border:2px dashed #F0EAD8;border-radius:.5rem;padding:.75rem;cursor:pointer;transition:border-color .2s;font-size:.8rem;font-weight:600;color:#5A5A6A}
+  .upload-btn:hover{border-color:#F5C200;color:#0D1B2A}
 </style>
 </head>
 <body class="bg-cream text-ink font-body">
 
-<!-- ─── LOGO SVG SNIPPET (reused) ─── -->
 <template id="logoTpl">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
     <rect width="100" height="100" fill="#000" rx="10"/>
-    <!-- House outline: peak → right wall → base-right; left wall up to peak; base-left open for arrow -->
     <path d="M59,87 L84,87 L84,44 L50,13 L16,44 L16,87" fill="none" stroke="#F5C200" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- Diagonal arrow body -->
     <line x1="20" y1="83" x2="63" y2="35" stroke="#F5C200" stroke-width="6.5" stroke-linecap="round"/>
-    <!-- Arrowhead (L-shape pointing upper-right) -->
     <polyline points="47,30 65,30 65,49" fill="none" stroke="#F5C200" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 </template>
 
-<!-- ══════════════════════ NAV ══════════════════════ -->
+<!-- NAV -->
 <nav class="fixed top-0 w-full z-50 bg-black backdrop-blur-xl shadow-lg">
   <div class="flex justify-between items-center px-8 py-3.5 max-w-screen-xl mx-auto">
     <div class="flex items-center gap-3">
@@ -62,10 +63,10 @@
 
 <main class="pt-16">
 
-<!-- ══════════════════════ HERO ══════════════════════ -->
+<!-- HERO -->
 <section class="relative min-h-[92vh] flex items-center overflow-hidden bg-navy">
   <div class="absolute inset-0 z-0">
-    <img alt="Modern city skyline" class="w-full h-full object-cover opacity-35 grayscale"
+    <img id="heroImg" alt="Modern city skyline" class="w-full h-full object-cover opacity-35 grayscale"
       src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEx17VsbkEfF7R3XgwcdKFbel1AnfnEvUb_I4rqJih6iO4KUpr_zNFUe9VxCiFx36goO73sWY1Ga5DMNLE4XAtcfHHWBiORRcvA_oscf_tVVUIgQ7bJneADUx5USZahS2WsP6SR1JjqYaR3yE1rGLkfJ5GkOjHBq1JYs8Q22oLUTp6b8hwcWUQvszZeW3d5lBUmccW8qd0skKAFrQ5d7zlN1_LdbGFMS8IYdFlmr6Pqd_OKynHziSzKat_bKJf7Knp0tF9XkTE5CA"/>
   </div>
   <div class="relative z-10 max-w-screen-xl mx-auto px-8 w-full py-28">
@@ -85,12 +86,12 @@
   </div>
 </section>
 
-<!-- ══════════════════════ PHILOSOPHY ══════════════════════ -->
+<!-- PHILOSOPHY -->
 <section id="philosophy" class="py-28 bg-cream">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
       <div class="relative">
-        <img alt="Trusted mortgage consultation" class="rounded-xl shadow-2xl w-full object-cover"
+        <img id="philosophyImg" alt="Trusted mortgage consultation" class="rounded-xl shadow-2xl w-full object-cover"
           src="https://lh3.googleusercontent.com/aida-public/AB6AXuChxP4_IbFfNDE4q3OPB8PHnTsmdI2_wEHgQuyaSr5lxqoEQYkGLHR38BliyTZmzmthvZNBy_QU090eRTz3FPpOx0KVeNEoEhe7Cjo_ESGvIfWyOz0kHbDkOlXFrrTRHt468FZuwRhRxLwLKgT5uUK1Oyl6q7XZ0thv0NVqt1eYq1b9bbtljmrYKiRLyKnW6iCaFeU5xrzwrViuJ1mHIzSLPhWgFr8otbit4S8cpA0sYVtF7chWXUZyb7W0XhmfOVXsdcaZuQ_dxZs"/>
         <div class="absolute -bottom-8 -right-6 bg-navy text-white p-8 rounded-xl max-w-xs shadow-xl hidden md:block">
           <p class="font-headline text-xl font-bold leading-snug">"We don't just broker — we advocate for you."</p>
@@ -102,44 +103,35 @@
         <h2 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter text-navy mb-6">The Haeden Partnership</h2>
         <p class="text-lg text-ink-muted leading-relaxed mb-10">Our philosophy is built on three pillars: <span class="text-navy font-semibold">Transparency, advocacy, and unwavering support.</span> From the moment you think about pre-approval until long after you've settled into your new home, we are by your side.</p>
         <div class="space-y-7">
-          <div class="flex items-start gap-5">
-            <div class="bg-gold p-3 rounded-lg flex-shrink-0"><span class="material-symbols-outlined text-navy">handshake</span></div>
-            <div><h3 class="font-headline font-bold text-lg text-navy mb-1">Dedicated Advocacy</h3><p class="text-ink-muted leading-relaxed">We negotiate with lenders on your behalf to secure terms that truly align with your long-term wealth strategy — not just what's easiest to approve.</p></div>
-          </div>
-          <div class="flex items-start gap-5">
-            <div class="bg-gold p-3 rounded-lg flex-shrink-0"><span class="material-symbols-outlined text-navy">visibility</span></div>
-            <div><h3 class="font-headline font-bold text-lg text-navy mb-1">Radical Transparency</h3><p class="text-ink-muted leading-relaxed">No hidden fees, no complex jargon. Just clear, honest advice about what's best for your financial future — even if that means telling you to wait.</p></div>
-          </div>
-          <div class="flex items-start gap-5">
-            <div class="bg-gold p-3 rounded-lg flex-shrink-0"><span class="material-symbols-outlined text-navy">support_agent</span></div>
-            <div><h3 class="font-headline font-bold text-lg text-navy mb-1">Unwavering Support</h3><p class="text-ink-muted leading-relaxed">From your first question to long after settlement, we're in your corner — responsive, proactive, and committed to your success at every stage.</p></div>
-          </div>
+          <div class="flex items-start gap-5"><div class="bg-gold p-3 rounded-lg flex-shrink-0"><span class="material-symbols-outlined text-navy">handshake</span></div><div><h3 class="font-headline font-bold text-lg text-navy mb-1">Dedicated Advocacy</h3><p class="text-ink-muted leading-relaxed">We negotiate with lenders on your behalf to secure terms that truly align with your long-term wealth strategy — not just what's easiest to approve.</p></div></div>
+          <div class="flex items-start gap-5"><div class="bg-gold p-3 rounded-lg flex-shrink-0"><span class="material-symbols-outlined text-navy">visibility</span></div><div><h3 class="font-headline font-bold text-lg text-navy mb-1">Radical Transparency</h3><p class="text-ink-muted leading-relaxed">No hidden fees, no complex jargon. Just clear, honest advice about what's best for your financial future — even if that means telling you to wait.</p></div></div>
+          <div class="flex items-start gap-5"><div class="bg-gold p-3 rounded-lg flex-shrink-0"><span class="material-symbols-outlined text-navy">support_agent</span></div><div><h3 class="font-headline font-bold text-lg text-navy mb-1">Unwavering Support</h3><p class="text-ink-muted leading-relaxed">From your first question to long after settlement, we're in your corner — responsive, proactive, and committed to your success at every stage.</p></div></div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════ EVERY CHALLENGE ══════════════════════ -->
+<!-- EVERY CHALLENGE -->
 <section class="py-24 bg-navy">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="max-w-3xl mx-auto text-center mb-16">
       <p class="text-gold font-bold text-sm uppercase tracking-widest mb-4">We Get It</p>
       <h2 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter text-white mb-6">Every Client Faces a Different Challenge</h2>
-      <p class="text-xl text-white/60 leading-relaxed">No two situations are the same. We take time to deeply understand your circumstances and work tirelessly to find a path forward — even when the road seems difficult. That's what makes us your most trusted partner through what is often one of life's most complex journeys.</p>
+      <p class="text-xl text-white/60 leading-relaxed">No two situations are the same. We take time to deeply understand your circumstances and work tirelessly to find a path forward — even when the road seems difficult.</p>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
       <div class="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-colors"><div class="w-11 h-11 bg-gold/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-gold">family_restroom</span></div><h3 class="font-headline font-bold text-white mb-2">First Home Buyers</h3><p class="text-white/50 text-sm leading-relaxed">Overwhelmed by the process? We guide you through every step — grants, guarantees, and all the fine print.</p></div>
       <div class="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-colors"><div class="w-11 h-11 bg-gold/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-gold">work</span></div><h3 class="font-headline font-bold text-white mb-2">Self-Employed Buyers</h3><p class="text-white/50 text-sm leading-relaxed">Complex income shouldn't hold you back. We know exactly which lenders understand business owners.</p></div>
       <div class="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-colors"><div class="w-11 h-11 bg-gold/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-gold">trending_up</span></div><h3 class="font-headline font-bold text-white mb-2">Property Investors</h3><p class="text-white/50 text-sm leading-relaxed">Building your portfolio? We structure loans to maximise equity and minimise tax across Australia.</p></div>
       <div class="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-colors"><div class="w-11 h-11 bg-gold/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-gold">refresh</span></div><h3 class="font-headline font-bold text-white mb-2">Refinancers</h3><p class="text-white/50 text-sm leading-relaxed">Stuck on a high rate or wanting to free up equity? We find a better deal and handle the entire switch.</p></div>
-      <div class="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-colors"><div class="w-11 h-11 bg-gold/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-gold">credit_score</span></div><h3 class="font-headline font-bold text-white mb-2">Credit-Challenged Buyers</h3><p class="text-white/50 text-sm leading-relaxed">Past credit issues don't define your future. We connect you with specialist lenders and build a plan to get you there.</p></div>
+      <div class="bg-white/5 border border-white/10 rounded-xl p-7 hover:bg-white/10 transition-colors"><div class="w-11 h-11 bg-gold/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-gold">credit_score</span></div><h3 class="font-headline font-bold text-white mb-2">Credit-Challenged Buyers</h3><p class="text-white/50 text-sm leading-relaxed">Past credit issues don't define your future. We connect you with specialist lenders and build a plan.</p></div>
       <div class="bg-gold rounded-xl p-7 flex flex-col justify-between"><div><div class="w-11 h-11 bg-navy/15 rounded-lg flex items-center justify-center mb-5"><span class="material-symbols-outlined text-navy">chat</span></div><h3 class="font-headline font-bold text-navy mb-2">Your Situation</h3><p class="text-navy/70 text-sm leading-relaxed mb-6">Every challenge is unique. Tell us your story and we'll find a way forward together.</p></div><a href="#contact" class="inline-block bg-navy text-white text-sm font-bold px-5 py-3 rounded-lg hover:bg-navy-mid transition-colors text-center">Book a Free Chat →</a></div>
     </div>
   </div>
 </section>
 
-<!-- ══════════════════════ SERVICES ══════════════════════ -->
+<!-- SERVICES -->
 <section id="services" class="py-28 bg-cream-dark">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
@@ -154,7 +146,7 @@
   </div>
 </section>
 
-<!-- ══════════════════════ PROCESS ══════════════════════ -->
+<!-- PROCESS -->
 <section id="process" class="py-28 bg-navy">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="text-center max-w-2xl mx-auto mb-20">
@@ -171,7 +163,7 @@
   </div>
 </section>
 
-<!-- ══════════════════════ REVIEWS ══════════════════════ -->
+<!-- REVIEWS -->
 <section id="reviews" class="py-28 bg-cream">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="mb-16"><p class="text-gold-dark font-bold text-sm uppercase tracking-widest mb-4">Client Stories</p><h2 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tighter text-navy">Voices of Partnership</h2></div>
@@ -179,7 +171,7 @@
   </div>
 </section>
 
-<!-- ══════════════════════ RESOURCES ══════════════════════ -->
+<!-- RESOURCES -->
 <section id="resources" class="py-28 bg-cream-dark">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
@@ -189,7 +181,7 @@
   </div>
 </section>
 
-<!-- ══════════════════════ CONTACT ══════════════════════ -->
+<!-- CONTACT -->
 <section id="contact" class="py-28 bg-navy text-white">
   <div class="max-w-screen-xl mx-auto px-8">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
@@ -198,18 +190,9 @@
         <h2 class="font-headline text-4xl md:text-6xl font-extrabold tracking-tighter mb-6">Start Your Partnership Today</h2>
         <p class="text-xl text-white/55 mb-14 leading-relaxed">The path to homeownership begins with a single honest conversation. Reach out to our team — no obligation, just clarity.</p>
         <div class="space-y-8">
-          <div class="flex items-center gap-5">
-            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10"><span class="material-symbols-outlined text-gold">location_on</span></div>
-            <div><p class="font-bold text-lg">Our Office</p><p id="contactAddress" class="text-white/50"></p></div>
-          </div>
-          <div class="flex items-center gap-5">
-            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10"><span class="material-symbols-outlined text-gold">mail</span></div>
-            <div><p class="font-bold text-lg">Email Us</p><p id="contactEmail" class="text-white/50"></p></div>
-          </div>
-          <div id="contactPhoneWrap" class="flex items-center gap-5 hidden">
-            <div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10"><span class="material-symbols-outlined text-gold">phone</span></div>
-            <div><p class="font-bold text-lg">Call Us</p><p id="contactPhone" class="text-white/50"></p></div>
-          </div>
+          <div class="flex items-center gap-5"><div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10"><span class="material-symbols-outlined text-gold">location_on</span></div><div><p class="font-bold text-lg">Our Office</p><p id="contactAddress" class="text-white/50"></p></div></div>
+          <div class="flex items-center gap-5"><div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10"><span class="material-symbols-outlined text-gold">mail</span></div><div><p class="font-bold text-lg">Email Us</p><p id="contactEmail" class="text-white/50"></p></div></div>
+          <div id="contactPhoneWrap" class="flex items-center gap-5 hidden"><div class="w-12 h-12 bg-white/5 rounded-lg flex items-center justify-center flex-shrink-0 border border-white/10"><span class="material-symbols-outlined text-gold">phone</span></div><div><p class="font-bold text-lg">Call Us</p><p id="contactPhone" class="text-white/50"></p></div></div>
         </div>
       </div>
       <div class="bg-white/5 p-10 rounded-xl border border-white/10">
@@ -219,8 +202,7 @@
             <div><label class="text-xs font-bold uppercase tracking-widest text-white/45 block mb-2">Last Name</label><input class="w-full bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-gold text-white py-3 px-4" type="text"/></div>
           </div>
           <div><label class="text-xs font-bold uppercase tracking-widest text-white/45 block mb-2">Email Address</label><input class="w-full bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-gold text-white py-3 px-4" type="email"/></div>
-          <div>
-            <label class="text-xs font-bold uppercase tracking-widest text-white/45 block mb-2">Your Situation</label>
+          <div><label class="text-xs font-bold uppercase tracking-widest text-white/45 block mb-2">Your Situation</label>
             <select class="w-full bg-white/5 border border-white/10 rounded-lg focus:ring-2 focus:ring-gold text-white py-3 px-4 appearance-none">
               <option class="bg-navy">First Home Loan</option><option class="bg-navy">Investment Loan</option><option class="bg-navy">Refinancing</option><option class="bg-navy">Construction Loan</option><option class="bg-navy">Debt Consolidation</option><option class="bg-navy">Asset Finance</option><option class="bg-navy">SMSF Loan</option><option class="bg-navy">Self-Employed</option><option class="bg-navy">Other / Not Sure</option>
             </select>
@@ -234,7 +216,7 @@
 </section>
 </main>
 
-<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<!-- FOOTER -->
 <footer class="bg-black">
   <div class="max-w-screen-xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center border-t border-white/10 gap-6">
     <div class="flex items-center gap-3">
@@ -254,7 +236,7 @@
   </div>
 </footer>
 
-<!-- ══════════════════════ ADMIN LOGIN MODAL ══════════════════════ -->
+<!-- ADMIN LOGIN MODAL -->
 <div id="loginModal" class="modal-bd hidden">
   <div class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl">
     <div class="text-center mb-6">
@@ -271,35 +253,32 @@
   </div>
 </div>
 
-<!-- ══════════════════════ CMS PANEL ══════════════════════ -->
+<!-- CMS PANEL -->
 <div id="cmsPanel" class="cms-panel">
-  <!-- CMS Header -->
   <div class="bg-navy flex items-center justify-between px-6 py-4 flex-shrink-0">
     <div class="flex items-center gap-3">
       <span class="material-symbols-outlined text-gold">admin_panel_settings</span>
       <span class="font-headline font-bold text-white text-sm">Content Manager</span>
     </div>
-    <button onclick="closeCMS()" class="text-white/60 hover:text-white transition-colors"><span class="material-symbols-outlined">close</span></button>
+    <button onclick="closeCMS()" class="text-white/60 hover:text-white"><span class="material-symbols-outlined">close</span></button>
   </div>
-  <!-- Tabs -->
   <div class="flex border-b border-gray-100 overflow-x-auto flex-shrink-0 px-2">
     <button class="tab-btn active" onclick="switchTab('services')">Services</button>
     <button class="tab-btn" onclick="switchTab('testimonials')">Testimonials</button>
     <button class="tab-btn" onclick="switchTab('resources')">Resources</button>
-    <button class="tab-btn" onclick="switchTab('contact')">Contact Info</button>
+    <button class="tab-btn" onclick="switchTab('contact')">Contact</button>
     <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
   </div>
-  <!-- Tab Content -->
   <div id="cmsContent" class="flex-1 overflow-y-auto p-6 bg-gray-50"></div>
 </div>
 
-<!-- ══════════════════════ EDIT MODALS ══════════════════════ -->
-<!-- Service Edit -->
+<!-- SERVICE EDIT MODAL -->
 <div id="serviceModal" class="modal-bd hidden" style="z-index:400">
   <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between items-center mb-6"><h3 class="font-headline font-bold text-xl text-navy">Edit Service</h3><button onclick="closeModal('serviceModal')" class="text-ink-muted hover:text-navy"><span class="material-symbols-outlined">close</span></button></div>
     <form id="serviceForm" class="space-y-4">
       <input type="hidden" id="svcId"/>
+      <input type="hidden" id="svcImageUrl"/>
       <div><label class="field-label">Title</label><input id="svcTitle" type="text" class="field-input"/></div>
       <div><label class="field-label">Description</label><textarea id="svcDesc" rows="3" class="field-input"></textarea></div>
       <div><label class="field-label">Icon</label>
@@ -309,32 +288,51 @@
       </div>
       <div><label class="field-label">Card Colour</label>
         <select id="svcTheme" class="field-input">
-          <option value="gold">Gold / Yellow</option><option value="navy">Navy / Dark</option><option value="white">White (hover navy)</option>
+          <option value="gold">Gold / Yellow</option><option value="navy">Navy / Dark</option><option value="white">White</option>
         </select>
+      </div>
+      <div>
+        <label class="field-label">Service Image (optional — replaces icon)</label>
+        <div id="svcImgPreview" class="hidden mb-2 rounded-lg overflow-hidden h-32 bg-gray-100"><img id="svcImgPreviewImg" class="w-full h-full object-cover"/></div>
+        <label class="upload-btn cursor-pointer">
+          <span class="material-symbols-outlined text-sm">upload</span>
+          <span>Choose image…</span>
+          <input id="svcImageFile" type="file" accept="image/*" class="hidden" onchange="previewFile(this,'svcImgPreviewImg','svcImgPreview')"/>
+        </label>
       </div>
       <div class="flex gap-3 pt-2">
         <button type="submit" class="flex-1 bg-gold text-navy font-bold py-3 rounded-lg hover:bg-gold-dark transition-colors">Save</button>
-        <button type="button" onclick="closeModal('serviceModal')" class="px-5 py-3 border border-cream-dark rounded-lg text-ink-muted hover:bg-cream transition-colors font-semibold">Cancel</button>
+        <button type="button" onclick="closeModal('serviceModal')" class="px-5 py-3 border border-cream-dark rounded-lg text-ink-muted hover:bg-cream font-semibold">Cancel</button>
       </div>
     </form>
   </div>
 </div>
 
-<!-- Article Edit -->
+<!-- ARTICLE EDIT MODAL -->
 <div id="articleModal" class="modal-bd hidden" style="z-index:400">
   <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl max-h-[90vh] overflow-y-auto">
     <div class="flex justify-between items-center mb-6"><h3 id="articleModalTitle" class="font-headline font-bold text-xl text-navy">Add Article</h3><button onclick="closeModal('articleModal')" class="text-ink-muted hover:text-navy"><span class="material-symbols-outlined">close</span></button></div>
     <form id="articleForm" class="space-y-4">
       <input type="hidden" id="articleId"/>
+      <input type="hidden" id="articleImageUrl"/>
       <div><label class="field-label">Category Tag</label><input id="articleCategory" type="text" placeholder="e.g. First Home Buyers" class="field-input"/></div>
       <div><label class="field-label">Title</label><input id="articleTitle" type="text" class="field-input"/></div>
       <div><label class="field-label">Summary</label><textarea id="articleExcerpt" rows="3" class="field-input"></textarea></div>
-      <div><label class="field-label">Icon</label>
+      <div>
+        <label class="field-label">Article Image (optional — shown as card header)</label>
+        <div id="articleImgPreview" class="hidden mb-2 rounded-lg overflow-hidden h-32 bg-gray-100"><img id="articleImgPreviewImg" class="w-full h-full object-cover"/></div>
+        <label class="upload-btn cursor-pointer">
+          <span class="material-symbols-outlined text-sm">upload</span>
+          <span>Choose image…</span>
+          <input id="articleImageFile" type="file" accept="image/*" class="hidden" onchange="previewFile(this,'articleImgPreviewImg','articleImgPreview')"/>
+        </label>
+      </div>
+      <div><label class="field-label">Fallback Icon (if no image)</label>
         <select id="articleIcon" class="field-input">
           <option value="percent">% Rates</option><option value="account_balance">Bank / Grant</option><option value="calculate">Calculator</option><option value="real_estate_agent">Real Estate</option><option value="credit_score">Credit Score</option><option value="savings">Savings</option><option value="home">Home</option><option value="assured_workload">SMSF</option><option value="merge_type">Debt</option><option value="directions_car">Asset Finance</option><option value="description">Document</option><option value="lightbulb">Tips</option>
         </select>
       </div>
-      <div><label class="field-label">Header Colour</label>
+      <div><label class="field-label">Fallback Header Colour (if no image)</label>
         <select id="articleBg" class="field-input">
           <option value="navy">Navy</option><option value="gold">Gold</option><option value="light">Light Grey</option><option value="cream">Warm Cream</option>
         </select>
@@ -347,7 +345,7 @@
   </div>
 </div>
 
-<!-- Testimonial Edit -->
+<!-- TESTIMONIAL EDIT MODAL -->
 <div id="testimonialModal" class="modal-bd hidden" style="z-index:400">
   <div class="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
     <div class="flex justify-between items-center mb-6"><h3 id="testimonialModalTitle" class="font-headline font-bold text-xl text-navy">Add Client Story</h3><button onclick="closeModal('testimonialModal')" class="text-ink-muted hover:text-navy"><span class="material-symbols-outlined">close</span></button></div>
@@ -355,7 +353,7 @@
       <input type="hidden" id="testimonialId"/>
       <div><label class="field-label">Client Name(s)</label><input id="testimonialName" type="text" placeholder="e.g. Marcus & Sarah T." class="field-input"/></div>
       <div><label class="field-label">Description</label><input id="testimonialRole" type="text" placeholder="e.g. First Home Buyer, Sydney" class="field-input"/></div>
-      <div><label class="field-label">Initials</label><input id="testimonialInitials" type="text" maxlength="3" placeholder="e.g. MS" class="field-input"/></div>
+      <div><label class="field-label">Initials (shown in avatar)</label><input id="testimonialInitials" type="text" maxlength="3" placeholder="e.g. MS" class="field-input"/></div>
       <div><label class="field-label">Their Quote</label><textarea id="testimonialText" rows="4" class="field-input"></textarea></div>
       <div class="flex items-center gap-3 p-3 bg-cream rounded-lg"><input id="testimonialFeatured" type="checkbox" class="w-4 h-4 accent-gold rounded"/><label for="testimonialFeatured" class="text-sm font-semibold text-navy cursor-pointer">Feature this story (large dark card)</label></div>
       <div class="flex gap-3 pt-2">
@@ -366,7 +364,7 @@
   </div>
 </div>
 
-<!-- Confirm Delete -->
+<!-- CONFIRM DELETE -->
 <div id="confirmModal" class="modal-bd hidden" style="z-index:500">
   <div class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl text-center">
     <div class="w-14 h-14 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4"><span class="material-symbols-outlined text-red-500">delete</span></div>
@@ -376,350 +374,456 @@
   </div>
 </div>
 
-<style>
-  .field-label{display:block;font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#5A5A6A;margin-bottom:.4rem}
-  .field-input{width:100%;border:1px solid #F0EAD8;border-radius:.5rem;padding:.6rem 1rem;font-size:.875rem;outline:none;transition:box-shadow .2s}
-  .field-input:focus{box-shadow:0 0 0 2px #F5C200}
-  textarea.field-input{resize:vertical}
-</style>
-
 <script>
-// ─── DEFAULT DATA ──────────────────────────────────────────────────────────
-const DEFAULT_SERVICES = [
-  {id:1,title:"Home Loans",description:"Whether it's your first home or your next upgrade, we simplify the complexity of the property market — and fight for the deal that suits you.",icon:"home",theme:"gold",size:"large",tags:["First Home","Next Home","Upsizing"]},
-  {id:2,title:"Refinancing",description:"Strategic restructuring to lower your rates and unlock equity for your next chapter.",icon:"trending_up",theme:"white",size:"small"},
-  {id:3,title:"Investment Property",description:"Tax-efficient structures designed for high-growth investment portfolios across Australia.",icon:"apartment",theme:"gold",size:"large"},
-  {id:4,title:"Construction & Renovation",description:"Funding for your dream build. We manage progress payments and lender requirements so you can focus entirely on the design.",icon:"architecture",theme:"white",size:"small"},
-  {id:5,title:"Debt Consolidation",description:"Simplify your finances by rolling multiple debts into one manageable repayment — reducing stress and often your total interest paid.",icon:"merge_type",theme:"white",size:"small"},
-  {id:6,title:"Asset Finance",description:"Equipment, vehicles, and business assets — we find the right finance structure to grow your business without straining your cash flow.",icon:"directions_car",theme:"white",size:"small"},
-  {id:7,title:"SMSF Loans",description:"Grow your retirement wealth through property. We specialise in SMSF lending with lenders who understand the complexities of self-managed super.",icon:"assured_workload",theme:"white",size:"small"},
-];
-const DEFAULT_ARTICLES=[
-  {id:1,category:"Rates & Costs",title:"Fixed vs Variable Rate: What's Right for You?",excerpt:"Choosing between fixed and variable is one of the biggest decisions in your loan. We break down the pros, cons and what suits different situations.",icon:"percent",bg:"navy"},
-  {id:2,category:"First Home Buyers",title:"First Home Owner Grant: Am I Eligible?",excerpt:"Australia's FHOG can give you up to $30,000 toward your first home. Here's everything you need to know about eligibility and how to apply.",icon:"account_balance",bg:"gold"},
-  {id:3,category:"Understanding Loans",title:"What is LVR and Why Does It Matter?",excerpt:"Your Loan-to-Value Ratio affects your rate, your lender options, and whether you'll need LMI. Here's a simple guide.",icon:"calculate",bg:"light"},
-  {id:4,category:"Refinancing",title:"When Should You Refinance Your Home Loan?",excerpt:"Refinancing can save you thousands — but it's not always the right move. Learn the signs that it's time to act.",icon:"real_estate_agent",bg:"cream"},
-  {id:5,category:"Credit & Approval",title:"How Your Credit Score Affects Your Loan",excerpt:"Your credit score is one of the first things lenders check. We explain what it means and how to improve it.",icon:"credit_score",bg:"navy"},
-  {id:6,category:"Planning",title:"How Much Deposit Do You Really Need?",excerpt:"The 20% rule isn't the whole story. Discover your options when working with a smaller deposit.",icon:"savings",bg:"gold"},
-];
-const DEFAULT_TESTIMONIALS=[
-  {id:1,name:"Marcus & Sarah T.",role:"New Farm Homeowners",initials:"MS",text:"The level of advocacy was something we hadn't experienced before. Haeden Finance didn't just find a loan — they fought hard when our bank was being difficult.",featured:false},
-  {id:2,name:"David R.",role:"Property Investor",initials:"DR",text:"Absolute professionals. They managed our complex investment property finance with zero stress. Haeden is our lifelong financial architect.",featured:true},
-  {id:3,name:"Elena K.",role:"First Home Buyer, Paddington",initials:"EK",text:"As a first home buyer I was terrified of the process. The transparency and genuine care I received made it clear that Haeden was invested in my success — not just my transaction.",featured:false},
-];
-const DEFAULT_CONTACT={address:"Level 12, 123 Eagle Street, Brisbane QLD 4000",email:"partner@haedenfinance.com.au",phone:""};
-const DEFAULT_PW = "Haeden2025";
+// ─── CONFIG ────────────────────────────────────────────────────────────────
+const SB_URL     = 'https://vmmlrdtpovrfxrzycmct.supabase.co';
+const SB_KEY     = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZtbWxyZHRwb3ZyZnhyenljbWN0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzUxNzMxNDgsImV4cCI6MjA5MDc0OTE0OH0.Pmrw8vyG6DBl92hbbF0fCP26AZ8-eZZrVfWUJVdTWtI';
+const CLD_CLOUD  = 'dw8kgbci6';
+const CLD_PRESET = 'ene1xyoh';
+const DEFAULT_PW = 'Haeden2025';
 
-// ─── VERSION RESET (bump DATA_VER when defaults change) ────────────────────
-const DATA_VER = '2.1';
-if(localStorage.getItem('hf_ver') !== DATA_VER) {
-  ['hf_services','hf_articles','hf_testimonials','hf_contact'].forEach(k=>localStorage.removeItem(k));
-  localStorage.setItem('hf_ver', DATA_VER);
+// ─── SUPABASE HELPERS ──────────────────────────────────────────────────────
+const SB_HDR = { 'apikey': SB_KEY, 'Authorization': `Bearer ${SB_KEY}`, 'Content-Type': 'application/json', 'Prefer': 'return=representation' };
+
+async function sbGet(table, qs = '') {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}${qs}`, { headers: SB_HDR });
+  return r.json();
+}
+async function sbInsert(table, data) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`, { method: 'POST', headers: SB_HDR, body: JSON.stringify(data) });
+  return r.json();
+}
+async function sbUpdate(table, match, data) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}?${match}`, { method: 'PATCH', headers: SB_HDR, body: JSON.stringify(data) });
+  return r.json();
+}
+async function sbDelete(table, match) {
+  await fetch(`${SB_URL}/rest/v1/${table}?${match}`, { method: 'DELETE', headers: SB_HDR });
+}
+async function sbUpsert(table, data) {
+  const r = await fetch(`${SB_URL}/rest/v1/${table}`, {
+    method: 'POST',
+    headers: { ...SB_HDR, 'Prefer': 'resolution=merge-duplicates,return=representation' },
+    body: JSON.stringify(data)
+  });
+  return r.json();
+}
+
+// ─── CLOUDINARY UPLOAD ─────────────────────────────────────────────────────
+async function uploadImage(file) {
+  const fd = new FormData();
+  fd.append('file', file);
+  fd.append('upload_preset', CLD_PRESET);
+  const r = await fetch(`https://api.cloudinary.com/v1_1/${CLD_CLOUD}/image/upload`, { method: 'POST', body: fd });
+  const d = await r.json();
+  if (!d.secure_url) throw new Error('Upload failed');
+  return d.secure_url;
 }
 
 // ─── STATE ─────────────────────────────────────────────────────────────────
-let services     = JSON.parse(localStorage.getItem('hf_services'))     || DEFAULT_SERVICES;
-let articles     = JSON.parse(localStorage.getItem('hf_articles'))     || DEFAULT_ARTICLES;
-let testimonials = JSON.parse(localStorage.getItem('hf_testimonials')) || DEFAULT_TESTIMONIALS;
-let contactInfo  = JSON.parse(localStorage.getItem('hf_contact'))      || DEFAULT_CONTACT;
-let adminPw      = localStorage.getItem('hf_pw')                        || DEFAULT_PW;
+let services     = [];
+let articles     = [];
+let testimonials = [];
+let contactInfo  = { address: '', email: '', phone: '' };
+let settings     = {};
+let adminPw      = DEFAULT_PW;
 let isAdmin      = sessionStorage.getItem('hf_admin') === '1';
 let currentTab   = 'services';
 let pendingDeleteFn = null;
 
-// ─── PERSIST ───────────────────────────────────────────────────────────────
-const save = (key,val) => localStorage.setItem(key, JSON.stringify(val));
+const SVC_LAYOUT = [{id:1,col:8},{id:2,col:4},{id:4,col:4},{id:3,col:8},{id:5,col:4},{id:6,col:4},{id:7,col:4}];
+
+// ─── LOAD ALL DATA ─────────────────────────────────────────────────────────
+async function loadAll() {
+  try {
+    const [svcs, arts, tests, sets] = await Promise.all([
+      sbGet('services', '?order=display_order'),
+      sbGet('articles', '?order=created_at'),
+      sbGet('testimonials', '?order=display_order'),
+      sbGet('settings', '?select=key,value'),
+    ]);
+    services     = Array.isArray(svcs)  ? svcs  : [];
+    articles     = Array.isArray(arts)  ? arts  : [];
+    testimonials = Array.isArray(tests) ? tests : [];
+    settings     = Array.isArray(sets)  ? Object.fromEntries(sets.map(r => [r.key, r.value])) : {};
+    contactInfo  = { address: settings.address || '', email: settings.email || '', phone: settings.phone || '' };
+    adminPw      = settings.admin_pw || DEFAULT_PW;
+    if (settings.hero_image)       document.getElementById('heroImg').src       = settings.hero_image;
+    if (settings.philosophy_image) document.getElementById('philosophyImg').src = settings.philosophy_image;
+    renderServices();
+    renderTestimonials();
+    renderArticles();
+    renderContact();
+  } catch(e) {
+    console.error('Supabase load error:', e);
+  }
+}
 
 // ─── LOGO ──────────────────────────────────────────────────────────────────
 function injectLogo(elId) {
-  const tpl = document.getElementById('logoTpl');
+  const tpl  = document.getElementById('logoTpl');
   const node = tpl.content.cloneNode(true);
-  const svg = node.querySelector('svg');
+  const svg  = node.querySelector('svg');
   svg.style.cssText = 'width:36px;height:36px;display:block';
   document.getElementById(elId).appendChild(svg);
 }
-injectLogo('navLogo');
-injectLogo('footerLogo');
 
 // ─── CONTACT ───────────────────────────────────────────────────────────────
 function renderContact() {
   document.getElementById('contactAddress').textContent = contactInfo.address;
   document.getElementById('contactEmail').textContent   = contactInfo.email;
   const phoneWrap = document.getElementById('contactPhoneWrap');
-  const phoneEl   = document.getElementById('contactPhone');
-  if(contactInfo.phone) { phoneEl.textContent = contactInfo.phone; phoneWrap.classList.remove('hidden'); }
+  if (contactInfo.phone) { document.getElementById('contactPhone').textContent = contactInfo.phone; phoneWrap.classList.remove('hidden'); }
   else { phoneWrap.classList.add('hidden'); }
 }
 
 // ─── SERVICES ──────────────────────────────────────────────────────────────
-// Layout: service IDs map to grid positions/sizes
-// Row1: Home Loans(gold,large) + Refinancing(white)
-// Row2: Construction(white) + Investment Property(gold,large) — swapped
-// Row3: Debt Consolidation + Asset Finance + SMSF — all equal white
-const SVC_LAYOUT=[{id:1,col:8},{id:2,col:4},{id:4,col:4},{id:3,col:8},{id:5,col:4},{id:6,col:4},{id:7,col:4}];
-
 function svcStyle(theme) {
-  if(theme==='gold')  return {wrap:'bg-gold',txt:'text-navy',icon:'text-navy',sub:'text-navy/75'};
-  if(theme==='navy')  return {wrap:'bg-navy',txt:'text-white',icon:'text-gold',sub:'text-white/60'};
-  return {wrap:'bg-white group hover:bg-navy',txt:'text-navy group-hover:text-white',icon:'text-navy group-hover:text-gold',sub:'text-ink-muted group-hover:text-white/60'};
+  if (theme === 'gold') return { wrap:'bg-gold', txt:'text-navy', icon:'text-navy', sub:'text-navy/75' };
+  if (theme === 'navy') return { wrap:'bg-navy', txt:'text-white', icon:'text-gold', sub:'text-white/60' };
+  return { wrap:'bg-white group hover:bg-navy', txt:'text-navy group-hover:text-white', icon:'text-navy group-hover:text-gold', sub:'text-ink-muted group-hover:text-white/60' };
 }
 function renderServices() {
   const grid = document.getElementById('servicesGrid');
   grid.innerHTML = SVC_LAYOUT.map(layout => {
-    const s = services.find(x=>x.id===layout.id);
-    if(!s) return '';
+    const s = services.find(x => x.id === layout.id);
+    if (!s) return '';
     const st = svcStyle(s.theme);
     const editBtn = isAdmin ? `<button onclick="openServiceModal(${s.id})" class="absolute top-3 right-3 bg-gold text-navy text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center gap-1"><span class="material-symbols-outlined text-sm">edit</span>Edit</button>` : '';
-    const tags = (s.tags && layout.col===8 && s.id===1) ? `<div class="flex gap-3 flex-wrap mt-6">${s.tags.map(t=>`<span class="px-4 py-1 rounded-full border border-current/20 text-xs font-bold uppercase tracking-widest opacity-70">${t}</span>`).join('')}</div>` : '';
-    // Construction card gets an image
-    const img = (s.id===4) ? `<div class="w-full md:w-52 flex-shrink-0"><img alt="" class="rounded-lg w-full h-40 object-cover grayscale" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBmuqtSofBuHTuVfxZ79QCwbPc7n4zLv19m2FswZ0h8yReJQMqV046UNBklLH69ip1dJKCRd_ByJeXFrarDgmbXE2XV0Kdumu7oKu4gs0a11IfXXkQhAd7jd7mMGFSMKN2F0BJbFZNUiaCrIrltyjKpSJ7qlB3l-iyhR-mPS6zD9QmS-85HLRFJpK7wFtjKq8Mz-VANQAQwB709TcEH3OaYdnrfsazumjOo4hQoJC-z600j2XcjdjUwsjy1emtwNvu_LJL0-qzN-0w"/></div>` : '';
-    const inner = (s.id===4)
-      ? `<div class="flex flex-col md:flex-row gap-10 items-center"><div class="flex-1"><span class="material-symbols-outlined text-4xl mb-6 ${st.icon} block">${s.icon}</span><h3 class="font-headline text-xl font-bold mb-3 ${st.txt}">${s.title}</h3><p class="${st.sub} leading-relaxed">${s.description}</p></div>${img}</div>`
-      : `<span class="material-symbols-outlined text-4xl mb-6 ${st.icon} block">${s.icon}</span><h3 class="font-headline ${layout.col===8?'text-2xl':'text-xl'} font-bold mb-3 ${st.txt}">${s.title}</h3><p class="${st.sub} leading-relaxed max-w-md">${s.description}</p>${tags}`;
-    return `<div class="md:col-span-${layout.col} ${st.wrap} p-10 rounded-xl relative group transition-all duration-500 cursor-pointer">${editBtn}${inner}</div>`;
+    const tags = (s.tags && layout.col === 8 && s.id === 1) ? `<div class="flex gap-3 flex-wrap mt-6">${s.tags.map(t=>`<span class="px-4 py-1 rounded-full border border-current/20 text-xs font-bold uppercase tracking-widest opacity-70">${t}</span>`).join('')}</div>` : '';
+    const iconOrImg = s.image_url
+      ? `<img src="${s.image_url}" alt="${s.title}" class="w-16 h-16 object-cover rounded-lg mb-6"/>`
+      : `<span class="material-symbols-outlined text-4xl mb-6 ${st.icon} block">${s.icon || 'home'}</span>`;
+    return `<div class="md:col-span-${layout.col} ${st.wrap} p-10 rounded-xl relative group transition-all duration-500 cursor-pointer">${editBtn}${iconOrImg}<h3 class="font-headline ${layout.col===8?'text-2xl':'text-xl'} font-bold mb-3 ${st.txt}">${s.title}</h3><p class="${st.sub} leading-relaxed max-w-md">${s.description}</p>${tags}</div>`;
   }).join('');
 }
 
 // ─── TESTIMONIALS ──────────────────────────────────────────────────────────
 function renderTestimonials() {
   const grid = document.getElementById('testimonialsGrid');
-  const feat = testimonials.filter(t=>t.featured);
-  const rest = testimonials.filter(t=>!t.featured);
-  let ordered = [];
-  if(feat.length) { ordered=[rest[0],feat[0],rest[1]].filter(Boolean); if(rest.length>2) ordered=ordered.concat(rest.slice(2)); if(feat.length>1) ordered=ordered.concat(feat.slice(1)); }
-  else ordered=testimonials;
+  const feat  = testimonials.filter(t => t.featured);
+  const rest  = testimonials.filter(t => !t.featured);
+  let ordered = feat.length ? [rest[0], feat[0], rest[1]].filter(Boolean).concat(rest.slice(2)).concat(feat.slice(1)) : [...testimonials];
   const stars = '<span class="material-symbols-outlined filled text-xl">star</span>'.repeat(5);
-  const editBtns = (id) => isAdmin ? `<div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"><button onclick="openTestimonialModal(${id})" class="bg-gold text-navy text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="confirmDelete(()=>{testimonials=testimonials.filter(x=>x.id!==${id});save('hf_testimonials',testimonials);renderTestimonials();renderCMSContent();})" class="bg-white text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button></div>` : '';
-  grid.innerHTML = ordered.map(t => t.featured
-    ? `<div class="bg-navy text-white p-9 rounded-xl shadow-2xl md:scale-105 relative z-10 group"><div class="flex gap-0.5 text-gold mb-5">${stars}</div><p class="text-white/80 italic mb-7 leading-relaxed text-lg">"${t.text}"</p><div class="flex items-center gap-4"><div class="w-11 h-11 rounded-full bg-gold flex items-center justify-center font-bold text-navy text-sm">${t.initials}</div><div><p class="font-bold text-sm">${t.name}</p><p class="text-xs text-white/45 uppercase tracking-widest">${t.role}</p></div></div>${editBtns(t.id)}</div>`
-    : `<div class="bg-white p-8 rounded-xl shadow-sm border border-cream-dark relative group"><div class="flex gap-0.5 text-gold mb-5">${stars}</div><p class="text-ink-muted italic mb-7 leading-relaxed">"${t.text}"</p><div class="flex items-center gap-4"><div class="w-11 h-11 rounded-full bg-gold/20 flex items-center justify-center font-bold text-navy text-sm">${t.initials}</div><div><p class="font-bold text-navy text-sm">${t.name}</p><p class="text-xs text-ink-light uppercase tracking-widest">${t.role}</p></div></div>${editBtns(t.id)}</div>`
-  ).join('');
+  const editBtns = id => isAdmin ? `<div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"><button onclick="openTestimonialModal('${id}')" class="bg-gold text-navy text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="confirmDelete(()=>deleteTesti('${id}'))" class="bg-white text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button></div>` : '';
+  grid.innerHTML = ordered.map(t => {
+    const ini = t.initials || (t.name||'').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+    return t.featured
+      ? `<div class="bg-navy text-white p-9 rounded-xl shadow-2xl md:scale-105 relative z-10 group"><div class="flex gap-0.5 text-gold mb-5">${stars}</div><p class="text-white/80 italic mb-7 leading-relaxed text-lg">"${t.body}"</p><div class="flex items-center gap-4"><div class="w-11 h-11 rounded-full bg-gold flex items-center justify-center font-bold text-navy text-sm">${ini}</div><div><p class="font-bold text-sm">${t.name}</p><p class="text-xs text-white/45 uppercase tracking-widest">${t.role||''}</p></div></div>${editBtns(t.id)}</div>`
+      : `<div class="bg-white p-8 rounded-xl shadow-sm border border-cream-dark relative group"><div class="flex gap-0.5 text-gold mb-5">${stars}</div><p class="text-ink-muted italic mb-7 leading-relaxed">"${t.body}"</p><div class="flex items-center gap-4"><div class="w-11 h-11 rounded-full bg-gold/20 flex items-center justify-center font-bold text-navy text-sm">${ini}</div><div><p class="font-bold text-navy text-sm">${t.name}</p><p class="text-xs text-ink-light uppercase tracking-widest">${t.role||''}</p></div></div>${editBtns(t.id)}</div>`;
+  }).join('');
 }
 
 // ─── ARTICLES ──────────────────────────────────────────────────────────────
-function artBg(bg){const m={navy:'bg-navy text-gold',gold:'bg-gold text-navy','light':'bg-navy/10 text-navy',cream:'bg-gold/15 text-gold-dark'};return m[bg]||m.navy;}
+function artBg(bg) { return ({navy:'bg-navy text-gold',gold:'bg-gold text-navy',light:'bg-navy/10 text-navy',cream:'bg-gold/15 text-gold-dark'})[bg] || 'bg-navy text-gold'; }
 function renderArticles() {
   const grid = document.getElementById('articlesGrid');
-  const editBtns = (id) => isAdmin ? `<div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"><button onclick="openArticleModal(${id})" class="bg-gold text-navy text-xs font-bold px-3 py-1.5 rounded-lg flex items-center gap-1"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="confirmDelete(()=>{articles=articles.filter(x=>x.id!==${id});save('hf_articles',articles);renderArticles();renderCMSContent();})" class="bg-white text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button></div>` : '';
-  grid.innerHTML = articles.map(a=>`
-  <article class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer relative">
-    ${editBtns(a.id)}
-    <div class="${artBg(a.bg)} h-44 flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:3.5rem">${a.icon}</span></div>
-    <div class="p-7"><span class="text-xs font-bold uppercase tracking-widest text-gold-dark bg-gold/10 px-3 py-1 rounded-full">${a.category}</span><h3 class="font-headline font-bold text-navy mt-4 mb-3 leading-snug group-hover:text-gold-dark transition-colors">${a.title}</h3><p class="text-ink-muted text-sm leading-relaxed mb-5">${a.excerpt}</p><span class="text-gold-dark font-bold text-sm">Read more →</span></div>
-  </article>`).join('');
+  if (!articles.length) { grid.innerHTML = '<p class="text-ink-muted col-span-3 text-center py-12">No articles yet — add some from the admin panel.</p>'; return; }
+  const editBtns = id => isAdmin ? `<div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"><button onclick="openArticleModal('${id}')" class="bg-gold text-navy text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="confirmDelete(()=>deleteArticle('${id}'))" class="bg-white text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button></div>` : '';
+  grid.innerHTML = articles.map(a => `
+    <article class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer relative">
+      ${editBtns(a.id)}
+      ${a.image_url
+        ? `<div class="h-44 overflow-hidden"><img src="${a.image_url}" alt="${a.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/></div>`
+        : `<div class="${artBg(a.bg||'navy')} h-44 flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:3.5rem">${a.icon||'description'}</span></div>`}
+      <div class="p-7"><span class="text-xs font-bold uppercase tracking-widest text-gold-dark bg-gold/10 px-3 py-1 rounded-full">${a.category}</span><h3 class="font-headline font-bold text-navy mt-4 mb-3 leading-snug group-hover:text-gold-dark transition-colors">${a.title}</h3><p class="text-ink-muted text-sm leading-relaxed mb-5">${a.summary||''}</p><span class="text-gold-dark font-bold text-sm">Read more →</span></div>
+    </article>`).join('');
+}
+
+// ─── DELETE HELPERS ────────────────────────────────────────────────────────
+async function deleteTesti(id) {
+  await sbDelete('testimonials', `id=eq.${id}`);
+  testimonials = testimonials.filter(x => String(x.id) !== String(id));
+  renderTestimonials(); renderCMSContent();
+}
+async function deleteArticle(id) {
+  await sbDelete('articles', `id=eq.${id}`);
+  articles = articles.filter(x => String(x.id) !== String(id));
+  renderArticles(); renderCMSContent();
 }
 
 // ─── CMS PANEL ─────────────────────────────────────────────────────────────
-function openCMS() { document.getElementById('cmsPanel').classList.add('open'); renderCMSContent(); }
+function openCMS()  { document.getElementById('cmsPanel').classList.add('open'); renderCMSContent(); }
 function closeCMS() { document.getElementById('cmsPanel').classList.remove('open'); }
-
 function switchTab(tab) {
   currentTab = tab;
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase().startsWith(tab.substring(0,4).toLowerCase())));
-  // Fix active state more precisely
-  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); if(b.getAttribute('onclick')?.includes(`'${tab}'`)) b.classList.add('active'); });
+  document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); if (b.getAttribute('onclick')?.includes(`'${tab}'`)) b.classList.add('active'); });
   renderCMSContent();
 }
-
 function renderCMSContent() {
   const el = document.getElementById('cmsContent');
-  if(currentTab==='services') el.innerHTML = renderCMSServices();
-  else if(currentTab==='testimonials') el.innerHTML = renderCMSTestimonials();
-  else if(currentTab==='resources') el.innerHTML = renderCMSResources();
-  else if(currentTab==='contact') el.innerHTML = renderCMSContact();
-  else if(currentTab==='settings') el.innerHTML = renderCMSSettings();
+  if      (currentTab === 'services')     el.innerHTML = renderCMSServices();
+  else if (currentTab === 'testimonials') el.innerHTML = renderCMSTestimonials();
+  else if (currentTab === 'resources')    el.innerHTML = renderCMSResources();
+  else if (currentTab === 'contact')      el.innerHTML = renderCMSContact();
+  else if (currentTab === 'settings')     el.innerHTML = renderCMSSettings();
 }
 
 function renderCMSServices() {
   return `<div class="space-y-3">
-    <p class="text-xs text-ink-muted mb-4">Click Edit on any service to update its title, description, icon or colour.</p>
-    ${SVC_LAYOUT.map(layout=>{
-      const s=services.find(x=>x.id===layout.id);
-      if(!s) return '';
-      const themeClr={gold:'bg-gold text-navy',navy:'bg-navy text-white',white:'bg-white border border-gray-200 text-navy'}[s.theme]||'bg-white text-navy';
-      return `<div class="flex items-center gap-4 p-4 ${themeClr} rounded-xl">
-        <span class="material-symbols-outlined text-2xl flex-shrink-0">${s.icon}</span>
-        <div class="flex-1 min-w-0"><p class="font-bold text-sm">${s.title}</p><p class="text-xs opacity-60 truncate">${s.description.substring(0,60)}…</p></div>
-        <button onclick="openServiceModal(${s.id})" class="bg-black/10 hover:bg-black/20 text-current text-xs font-bold px-3 py-2 rounded-lg flex-shrink-0 flex items-center gap-1 transition-colors"><span class="material-symbols-outlined text-sm">edit</span>Edit</button>
+    <p class="text-xs text-ink-muted mb-4">Click Edit to update title, description, colour, or upload a photo.</p>
+    ${SVC_LAYOUT.map(l => {
+      const s = services.find(x => x.id === l.id); if (!s) return '';
+      const c = {gold:'bg-gold text-navy',navy:'bg-navy text-white',white:'bg-white border border-gray-200 text-navy'}[s.theme]||'bg-white text-navy';
+      return `<div class="flex items-center gap-4 p-4 ${c} rounded-xl">
+        ${s.image_url ? `<img src="${s.image_url}" class="w-8 h-8 rounded object-cover flex-shrink-0"/>` : `<span class="material-symbols-outlined text-2xl flex-shrink-0">${s.icon||'home'}</span>`}
+        <div class="flex-1 min-w-0"><p class="font-bold text-sm">${s.title}</p><p class="text-xs opacity-60 truncate">${(s.description||'').substring(0,60)}…</p></div>
+        <button onclick="openServiceModal(${s.id})" class="bg-black/10 hover:bg-black/20 text-current text-xs font-bold px-3 py-2 rounded-lg flex items-center gap-1"><span class="material-symbols-outlined text-sm">edit</span>Edit</button>
       </div>`;
     }).join('')}
   </div>`;
 }
-
 function renderCMSTestimonials() {
   return `<div>
-    <button onclick="openTestimonialModal(null)" class="w-full bg-gold text-navy font-bold py-3 rounded-xl mb-4 flex items-center justify-center gap-2 hover:bg-gold-dark transition-colors"><span class="material-symbols-outlined text-sm">add</span>Add Client Story</button>
-    <div class="space-y-3">
-      ${testimonials.map(t=>`
-      <div class="flex items-center gap-4 p-4 bg-white border border-gray-100 rounded-xl">
-        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center font-bold text-navy text-sm flex-shrink-0">${t.initials}</div>
-        <div class="flex-1 min-w-0"><p class="font-bold text-sm text-navy">${t.name}</p><p class="text-xs text-ink-muted truncate">${t.text.substring(0,55)}…</p></div>
-        <div class="flex gap-2 flex-shrink-0">
-          <button onclick="openTestimonialModal(${t.id})" class="bg-navy text-gold text-xs font-bold px-3 py-2 rounded-lg hover:bg-navy-mid transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
-          <button onclick="confirmDelete(()=>{testimonials=testimonials.filter(x=>x.id!==${t.id});save('hf_testimonials',testimonials);renderTestimonials();renderCMSContent();})" class="bg-red-50 text-red-500 text-xs font-bold px-3 py-2 rounded-lg hover:bg-red-100 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+    <button onclick="openTestimonialModal(null)" class="w-full bg-gold text-navy font-bold py-3 rounded-xl mb-4 flex items-center justify-center gap-2 hover:bg-gold-dark"><span class="material-symbols-outlined text-sm">add</span>Add Client Story</button>
+    <div class="space-y-3">${testimonials.map(t => {
+      const ini = t.initials || (t.name||'').split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase();
+      return `<div class="flex items-center gap-4 p-4 bg-white border border-gray-100 rounded-xl">
+        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center font-bold text-navy text-sm flex-shrink-0">${ini}</div>
+        <div class="flex-1 min-w-0"><p class="font-bold text-sm text-navy">${t.name}</p><p class="text-xs text-ink-muted truncate">${(t.body||'').substring(0,55)}…</p></div>
+        <div class="flex gap-2">
+          <button onclick="openTestimonialModal('${t.id}')" class="bg-navy text-gold text-xs font-bold px-3 py-2 rounded-lg"><span class="material-symbols-outlined text-sm">edit</span></button>
+          <button onclick="confirmDelete(()=>deleteTesti('${t.id}'))" class="bg-red-50 text-red-500 text-xs font-bold px-3 py-2 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button>
         </div>
-      </div>`).join('')}
-    </div>
+      </div>`;
+    }).join('')}</div>
   </div>`;
 }
-
 function renderCMSResources() {
   return `<div>
-    <button onclick="openArticleModal(null)" class="w-full bg-gold text-navy font-bold py-3 rounded-xl mb-4 flex items-center justify-center gap-2 hover:bg-gold-dark transition-colors"><span class="material-symbols-outlined text-sm">add</span>Add Article</button>
-    <div class="space-y-3">
-      ${articles.map(a=>`
+    <button onclick="openArticleModal(null)" class="w-full bg-gold text-navy font-bold py-3 rounded-xl mb-4 flex items-center justify-center gap-2 hover:bg-gold-dark"><span class="material-symbols-outlined text-sm">add</span>Add Article</button>
+    <div class="space-y-3">${articles.map(a => `
       <div class="flex items-center gap-4 p-4 bg-white border border-gray-100 rounded-xl">
-        <span class="material-symbols-outlined text-navy flex-shrink-0">${a.icon}</span>
+        ${a.image_url ? `<img src="${a.image_url}" class="w-10 h-10 rounded object-cover flex-shrink-0"/>` : `<span class="material-symbols-outlined text-navy flex-shrink-0">${a.icon||'description'}</span>`}
         <div class="flex-1 min-w-0"><p class="font-bold text-sm text-navy">${a.title}</p><p class="text-xs text-gold-dark font-semibold">${a.category}</p></div>
-        <div class="flex gap-2 flex-shrink-0">
-          <button onclick="openArticleModal(${a.id})" class="bg-navy text-gold text-xs font-bold px-3 py-2 rounded-lg hover:bg-navy-mid transition-colors"><span class="material-symbols-outlined text-sm">edit</span></button>
-          <button onclick="confirmDelete(()=>{articles=articles.filter(x=>x.id!==${a.id});save('hf_articles',articles);renderArticles();renderCMSContent();})" class="bg-red-50 text-red-500 text-xs font-bold px-3 py-2 rounded-lg hover:bg-red-100 transition-colors"><span class="material-symbols-outlined text-sm">delete</span></button>
+        <div class="flex gap-2">
+          <button onclick="openArticleModal('${a.id}')" class="bg-navy text-gold text-xs font-bold px-3 py-2 rounded-lg"><span class="material-symbols-outlined text-sm">edit</span></button>
+          <button onclick="confirmDelete(()=>deleteArticle('${a.id}'))" class="bg-red-50 text-red-500 text-xs font-bold px-3 py-2 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button>
         </div>
       </div>`).join('')}
     </div>
   </div>`;
 }
-
 function renderCMSContact() {
   return `<form id="contactForm" class="space-y-5">
     <p class="text-xs text-ink-muted mb-2">Update your contact details displayed on the website.</p>
     <div><label class="field-label">Office Address</label><textarea id="cfAddress" rows="2" class="field-input">${contactInfo.address}</textarea></div>
     <div><label class="field-label">Email Address</label><input id="cfEmail" type="email" value="${contactInfo.email}" class="field-input"/></div>
     <div><label class="field-label">Phone Number <span class="normal-case font-normal">(optional)</span></label><input id="cfPhone" type="tel" value="${contactInfo.phone||''}" placeholder="+61 4xx xxx xxx" class="field-input"/></div>
-    <button type="submit" class="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:bg-gold-dark transition-colors">Save Contact Info</button>
+    <button type="submit" class="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:bg-gold-dark">Save Contact Info</button>
     <p id="contactSaved" class="hidden text-center text-green-600 text-sm font-semibold">✓ Saved successfully</p>
   </form>`;
 }
-
 function renderCMSSettings() {
-  return `<form id="pwForm" class="space-y-5">
-    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-sm text-amber-800"><strong>Current access:</strong> Admin password is required to open the CMS. Change it here to a strong, memorable password.</div>
-    <div><label class="field-label">Current Password</label><input id="pwCurrent" type="password" class="field-input" placeholder="Enter current password"/></div>
-    <div><label class="field-label">New Password</label><input id="pwNew" type="password" class="field-input" placeholder="New password (min 8 chars)"/></div>
-    <div><label class="field-label">Confirm New Password</label><input id="pwConfirm" type="password" class="field-input" placeholder="Repeat new password"/></div>
-    <button type="submit" class="w-full bg-navy text-white font-bold py-3 rounded-xl hover:bg-navy-mid transition-colors">Update Password</button>
-    <p id="pwMsg" class="hidden text-center text-sm font-semibold"></p>
-  </form>`;
+  return `<div class="space-y-6">
+    <div class="bg-white rounded-xl p-5 border border-gray-100">
+      <p class="font-bold text-sm text-navy mb-3">Hero Background Image</p>
+      ${settings.hero_image ? `<img src="${settings.hero_image}" class="w-full h-28 object-cover rounded-lg mb-3"/>` : '<p class="text-xs text-ink-muted mb-3">Using default image</p>'}
+      <label class="upload-btn cursor-pointer"><span class="material-symbols-outlined text-sm">upload</span><span>Choose image…</span><input type="file" id="heroImgFile" accept="image/*" class="hidden"/></label>
+      <button onclick="saveSettingImage('heroImgFile','hero_image','heroImg','heroImgMsg')" class="mt-3 w-full bg-navy text-white font-bold py-2.5 rounded-lg hover:bg-navy-mid text-sm">Upload Hero Image</button>
+      <p id="heroImgMsg" class="hidden text-center text-xs font-semibold mt-2"></p>
+    </div>
+    <div class="bg-white rounded-xl p-5 border border-gray-100">
+      <p class="font-bold text-sm text-navy mb-3">Philosophy Section Image</p>
+      ${settings.philosophy_image ? `<img src="${settings.philosophy_image}" class="w-full h-28 object-cover rounded-lg mb-3"/>` : '<p class="text-xs text-ink-muted mb-3">Using default image</p>'}
+      <label class="upload-btn cursor-pointer"><span class="material-symbols-outlined text-sm">upload</span><span>Choose image…</span><input type="file" id="philoImgFile" accept="image/*" class="hidden"/></label>
+      <button onclick="saveSettingImage('philoImgFile','philosophy_image','philosophyImg','philoImgMsg')" class="mt-3 w-full bg-navy text-white font-bold py-2.5 rounded-lg hover:bg-navy-mid text-sm">Upload Image</button>
+      <p id="philoImgMsg" class="hidden text-center text-xs font-semibold mt-2"></p>
+    </div>
+    <form id="pwForm" class="space-y-4 bg-white rounded-xl p-5 border border-gray-100">
+      <p class="font-bold text-sm text-navy mb-1">Change Admin Password</p>
+      <div><label class="field-label">Current Password</label><input id="pwCurrent" type="password" class="field-input" placeholder="Enter current password"/></div>
+      <div><label class="field-label">New Password</label><input id="pwNew" type="password" class="field-input" placeholder="Min 8 characters"/></div>
+      <div><label class="field-label">Confirm New Password</label><input id="pwConfirm" type="password" class="field-input" placeholder="Repeat new password"/></div>
+      <button type="submit" class="w-full bg-navy text-white font-bold py-3 rounded-xl hover:bg-navy-mid">Update Password</button>
+      <p id="pwMsg" class="hidden text-center text-sm font-semibold"></p>
+    </form>
+  </div>`;
+}
+
+// ─── SETTINGS IMAGE UPLOAD ─────────────────────────────────────────────────
+async function saveSettingImage(inputId, settingKey, imgElId, msgId) {
+  const file = document.getElementById(inputId)?.files[0];
+  const msg  = document.getElementById(msgId);
+  if (!file) return;
+  msg.textContent = 'Uploading…'; msg.className = 'text-center text-xs font-semibold text-navy'; msg.classList.remove('hidden');
+  try {
+    const url = await uploadImage(file);
+    await sbUpsert('settings', { key: settingKey, value: url });
+    settings[settingKey] = url;
+    document.getElementById(imgElId).src = url;
+    msg.textContent = '✓ Updated!'; msg.className = 'text-center text-xs font-semibold text-green-600';
+    setTimeout(() => renderCMSContent(), 800);
+  } catch(e) {
+    msg.textContent = '❌ Upload failed.'; msg.className = 'text-center text-xs font-semibold text-red-500';
+  }
+}
+
+// ─── FILE PREVIEW ──────────────────────────────────────────────────────────
+function previewFile(input, imgId, wrapId) {
+  const file = input.files[0]; if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById(imgId).src = e.target.result;
+    document.getElementById(wrapId).classList.remove('hidden');
+  };
+  reader.readAsDataURL(file);
 }
 
 // ─── SERVICE MODAL ─────────────────────────────────────────────────────────
 function openServiceModal(id) {
-  const s = services.find(x=>x.id===id);
-  if(!s) return;
+  const s = services.find(x => x.id === id); if (!s) return;
   document.getElementById('svcId').value    = s.id;
   document.getElementById('svcTitle').value = s.title;
   document.getElementById('svcDesc').value  = s.description;
-  document.getElementById('svcIcon').value  = s.icon;
+  document.getElementById('svcIcon').value  = s.icon || 'home';
   document.getElementById('svcTheme').value = s.theme;
+  document.getElementById('svcImageUrl').value = s.image_url || '';
+  const pw = document.getElementById('svcImgPreview');
+  if (s.image_url) { document.getElementById('svcImgPreviewImg').src = s.image_url; pw.classList.remove('hidden'); }
+  else { pw.classList.add('hidden'); }
   document.getElementById('serviceModal').classList.remove('hidden');
 }
-document.getElementById('serviceForm').addEventListener('submit', e=>{
+document.getElementById('serviceForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const id = parseInt(document.getElementById('svcId').value);
-  services = services.map(s => s.id===id ? {...s,title:document.getElementById('svcTitle').value.trim(),description:document.getElementById('svcDesc').value.trim(),icon:document.getElementById('svcIcon').value,theme:document.getElementById('svcTheme').value} : s);
-  save('hf_services',services); renderServices(); closeModal('serviceModal'); renderCMSContent();
+  const id   = parseInt(document.getElementById('svcId').value);
+  const file = document.getElementById('svcImageFile').files[0];
+  let image_url = document.getElementById('svcImageUrl').value || null;
+  const btn  = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  try {
+    if (file) image_url = await uploadImage(file);
+    const data = { title: document.getElementById('svcTitle').value.trim(), description: document.getElementById('svcDesc').value.trim(), icon: document.getElementById('svcIcon').value, theme: document.getElementById('svcTheme').value, image_url };
+    await sbUpdate('services', `id=eq.${id}`, data);
+    services = services.map(s => s.id === id ? { ...s, ...data } : s);
+    renderServices(); closeModal('serviceModal'); renderCMSContent();
+  } catch(err) { console.error(err); }
+  btn.textContent = 'Save'; btn.disabled = false;
 });
 
 // ─── ARTICLE MODAL ─────────────────────────────────────────────────────────
 function openArticleModal(id) {
-  const a = id ? articles.find(x=>x.id===id) : null;
+  const a = id ? articles.find(x => String(x.id) === String(id)) : null;
   document.getElementById('articleModalTitle').textContent = a ? 'Edit Article' : 'Add Article';
   document.getElementById('articleId').value       = a ? a.id : '';
-  document.getElementById('articleCategory').value = a ? a.category : '';
-  document.getElementById('articleTitle').value    = a ? a.title : '';
-  document.getElementById('articleExcerpt').value  = a ? a.excerpt : '';
-  document.getElementById('articleIcon').value     = a ? a.icon : 'percent';
-  document.getElementById('articleBg').value       = a ? a.bg : 'navy';
+  document.getElementById('articleCategory').value = a ? (a.category||'') : '';
+  document.getElementById('articleTitle').value    = a ? (a.title||'') : '';
+  document.getElementById('articleExcerpt').value  = a ? (a.summary||'') : '';
+  document.getElementById('articleIcon').value     = a ? (a.icon||'percent') : 'percent';
+  document.getElementById('articleBg').value       = a ? (a.bg||'navy') : 'navy';
+  document.getElementById('articleImageUrl').value = a ? (a.image_url||'') : '';
+  const pw = document.getElementById('articleImgPreview');
+  if (a && a.image_url) { document.getElementById('articleImgPreviewImg').src = a.image_url; pw.classList.remove('hidden'); }
+  else { pw.classList.add('hidden'); }
   document.getElementById('articleModal').classList.remove('hidden');
 }
-document.getElementById('articleForm').addEventListener('submit', e=>{
+document.getElementById('articleForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const id = document.getElementById('articleId').value;
-  const data = {category:document.getElementById('articleCategory').value.trim(),title:document.getElementById('articleTitle').value.trim(),excerpt:document.getElementById('articleExcerpt').value.trim(),icon:document.getElementById('articleIcon').value,bg:document.getElementById('articleBg').value};
-  if(!data.title||!data.category) return;
-  if(id) articles=articles.map(a=>a.id===parseInt(id)?{...a,...data}:a);
-  else {data.id=Date.now();articles.push(data);}
-  save('hf_articles',articles); renderArticles(); closeModal('articleModal'); renderCMSContent();
+  const id   = document.getElementById('articleId').value;
+  const file = document.getElementById('articleImageFile').files[0];
+  let image_url = document.getElementById('articleImageUrl').value || null;
+  const btn  = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  try {
+    if (file) image_url = await uploadImage(file);
+    const data = { category: document.getElementById('articleCategory').value.trim(), title: document.getElementById('articleTitle').value.trim(), summary: document.getElementById('articleExcerpt').value.trim(), icon: document.getElementById('articleIcon').value, bg: document.getElementById('articleBg').value, image_url };
+    if (!data.title || !data.category) { btn.textContent='Save Article'; btn.disabled=false; return; }
+    if (id) {
+      await sbUpdate('articles', `id=eq.${id}`, data);
+      articles = articles.map(a => String(a.id) === String(id) ? { ...a, ...data } : a);
+    } else {
+      const res = await sbInsert('articles', data);
+      articles.push(Array.isArray(res) ? res[0] : res);
+    }
+    renderArticles(); closeModal('articleModal'); renderCMSContent();
+  } catch(err) { console.error(err); }
+  btn.textContent = 'Save Article'; btn.disabled = false;
 });
 
 // ─── TESTIMONIAL MODAL ─────────────────────────────────────────────────────
 function openTestimonialModal(id) {
-  const t = id ? testimonials.find(x=>x.id===id) : null;
+  const t = id ? testimonials.find(x => String(x.id) === String(id)) : null;
   document.getElementById('testimonialModalTitle').textContent = t ? 'Edit Client Story' : 'Add Client Story';
   document.getElementById('testimonialId').value       = t ? t.id : '';
-  document.getElementById('testimonialName').value     = t ? t.name : '';
-  document.getElementById('testimonialRole').value     = t ? t.role : '';
-  document.getElementById('testimonialInitials').value = t ? t.initials : '';
-  document.getElementById('testimonialText').value     = t ? t.text : '';
-  document.getElementById('testimonialFeatured').checked = t ? t.featured : false;
+  document.getElementById('testimonialName').value     = t ? (t.name||'') : '';
+  document.getElementById('testimonialRole').value     = t ? (t.role||'') : '';
+  document.getElementById('testimonialInitials').value = t ? (t.initials||'') : '';
+  document.getElementById('testimonialText').value     = t ? (t.body||'') : '';
+  document.getElementById('testimonialFeatured').checked = t ? (t.featured||false) : false;
   document.getElementById('testimonialModal').classList.remove('hidden');
 }
-document.getElementById('testimonialForm').addEventListener('submit', e=>{
+document.getElementById('testimonialForm').addEventListener('submit', async e => {
   e.preventDefault();
-  const id = document.getElementById('testimonialId').value;
-  const data = {name:document.getElementById('testimonialName').value.trim(),role:document.getElementById('testimonialRole').value.trim(),initials:(document.getElementById('testimonialInitials').value.trim().toUpperCase()||'??'),text:document.getElementById('testimonialText').value.trim(),featured:document.getElementById('testimonialFeatured').checked};
-  if(!data.name||!data.text) return;
-  if(id) testimonials=testimonials.map(t=>t.id===parseInt(id)?{...t,...data}:t);
-  else {data.id=Date.now();testimonials.push(data);}
-  save('hf_testimonials',testimonials); renderTestimonials(); closeModal('testimonialModal'); renderCMSContent();
+  const id  = document.getElementById('testimonialId').value;
+  const btn = e.target.querySelector('button[type=submit]');
+  btn.textContent = 'Saving…'; btn.disabled = true;
+  try {
+    const name = document.getElementById('testimonialName').value.trim();
+    const data = { name, role: document.getElementById('testimonialRole').value.trim(), initials: document.getElementById('testimonialInitials').value.trim().toUpperCase() || name.split(' ').map(w=>w[0]).join('').substring(0,2).toUpperCase(), body: document.getElementById('testimonialText').value.trim(), featured: document.getElementById('testimonialFeatured').checked };
+    if (!data.name || !data.body) { btn.textContent='Save Story'; btn.disabled=false; return; }
+    if (id) {
+      await sbUpdate('testimonials', `id=eq.${id}`, data);
+      testimonials = testimonials.map(t => String(t.id) === String(id) ? { ...t, ...data } : t);
+    } else {
+      const res = await sbInsert('testimonials', data);
+      testimonials.push(Array.isArray(res) ? res[0] : res);
+    }
+    renderTestimonials(); closeModal('testimonialModal'); renderCMSContent();
+  } catch(err) { console.error(err); }
+  btn.textContent = 'Save Story'; btn.disabled = false;
 });
 
-// ─── CONTACT FORM (delegated) ───────────────────────────────────────────────
-document.getElementById('cmsContent').addEventListener('submit', e=>{
-  if(e.target.id==='contactForm') {
+// ─── CONTACT & PASSWORD FORMS (delegated) ──────────────────────────────────
+document.getElementById('cmsContent').addEventListener('submit', async e => {
+  if (e.target.id === 'contactForm') {
     e.preventDefault();
-    contactInfo={address:document.getElementById('cfAddress').value.trim(),email:document.getElementById('cfEmail').value.trim(),phone:document.getElementById('cfPhone').value.trim()};
-    save('hf_contact',contactInfo); renderContact();
-    const msg=document.getElementById('contactSaved'); msg.classList.remove('hidden'); setTimeout(()=>msg.classList.add('hidden'),3000);
+    contactInfo = { address: document.getElementById('cfAddress').value.trim(), email: document.getElementById('cfEmail').value.trim(), phone: document.getElementById('cfPhone').value.trim() };
+    await sbUpsert('settings', [{ key:'address', value:contactInfo.address }, { key:'email', value:contactInfo.email }, { key:'phone', value:contactInfo.phone }]);
+    renderContact();
+    const msg = document.getElementById('contactSaved'); msg.classList.remove('hidden'); setTimeout(() => msg.classList.add('hidden'), 3000);
   }
-  if(e.target.id==='pwForm') {
+  if (e.target.id === 'pwForm') {
     e.preventDefault();
-    const cur=document.getElementById('pwCurrent').value;
-    const nw=document.getElementById('pwNew').value;
-    const cf=document.getElementById('pwConfirm').value;
-    const msg=document.getElementById('pwMsg');
-    msg.classList.remove('hidden');
-    if(cur!==adminPw){msg.textContent='❌ Current password is incorrect.';msg.className='text-center text-sm font-semibold text-red-500';return;}
-    if(nw.length<8){msg.textContent='❌ New password must be at least 8 characters.';msg.className='text-center text-sm font-semibold text-red-500';return;}
-    if(nw!==cf){msg.textContent='❌ Passwords do not match.';msg.className='text-center text-sm font-semibold text-red-500';return;}
-    adminPw=nw; localStorage.setItem('hf_pw',adminPw);
-    msg.textContent='✓ Password updated successfully.'; msg.className='text-center text-sm font-semibold text-green-600';
-    e.target.reset();
+    const cur = document.getElementById('pwCurrent').value;
+    const nw  = document.getElementById('pwNew').value;
+    const cf  = document.getElementById('pwConfirm').value;
+    const msg = document.getElementById('pwMsg'); msg.classList.remove('hidden');
+    if (cur !== adminPw)  { msg.textContent='❌ Current password is incorrect.'; msg.className='text-center text-sm font-semibold text-red-500'; return; }
+    if (nw.length < 8)    { msg.textContent='❌ New password must be at least 8 characters.'; msg.className='text-center text-sm font-semibold text-red-500'; return; }
+    if (nw !== cf)         { msg.textContent='❌ Passwords do not match.'; msg.className='text-center text-sm font-semibold text-red-500'; return; }
+    await sbUpsert('settings', { key:'admin_pw', value:nw }); adminPw = nw;
+    msg.textContent='✓ Password updated.'; msg.className='text-center text-sm font-semibold text-green-600'; e.target.reset();
   }
 });
 
 // ─── ADMIN LOGIN ────────────────────────────────────────────────────────────
-document.getElementById('adminLoginBtn').addEventListener('click', ()=>{
-  if(isAdmin){openCMS();}
-  else{document.getElementById('loginModal').classList.remove('hidden');document.getElementById('loginPw').focus();}
+document.getElementById('adminLoginBtn').addEventListener('click', () => {
+  if (isAdmin) { openCMS(); }
+  else { document.getElementById('loginModal').classList.remove('hidden'); document.getElementById('loginPw').focus(); }
 });
-document.getElementById('loginForm').addEventListener('submit', e=>{
+document.getElementById('loginForm').addEventListener('submit', e => {
   e.preventDefault();
-  if(document.getElementById('loginPw').value===adminPw){
-    isAdmin=true; sessionStorage.setItem('hf_admin','1');
+  if (document.getElementById('loginPw').value === adminPw) {
+    isAdmin = true; sessionStorage.setItem('hf_admin','1');
     closeLoginModal(); openCMS(); renderServices(); renderTestimonials(); renderArticles();
   } else {
     document.getElementById('loginError').classList.remove('hidden');
-    document.getElementById('loginPw').value=''; document.getElementById('loginPw').focus();
+    document.getElementById('loginPw').value = ''; document.getElementById('loginPw').focus();
   }
 });
-function closeLoginModal(){document.getElementById('loginModal').classList.add('hidden');document.getElementById('loginPw').value='';document.getElementById('loginError').classList.add('hidden');}
-document.getElementById('loginModal').addEventListener('click',e=>{if(e.target.id==='loginModal')closeLoginModal();});
+function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); document.getElementById('loginPw').value=''; document.getElementById('loginError').classList.add('hidden'); }
+document.getElementById('loginModal').addEventListener('click', e => { if (e.target.id==='loginModal') closeLoginModal(); });
 
-// ─── HELPERS ────────────────────────────────────────────────────────────────
-function closeModal(id){document.getElementById(id).classList.add('hidden');}
-function confirmDelete(fn){pendingDeleteFn=fn;document.getElementById('confirmModal').classList.remove('hidden');}
-document.getElementById('confirmDeleteBtn').addEventListener('click',()=>{if(pendingDeleteFn)pendingDeleteFn();closeModal('confirmModal');pendingDeleteFn=null;});
-document.getElementById('confirmModal').addEventListener('click',e=>{if(e.target.id==='confirmModal')closeModal('confirmModal');});
+// ─── HELPERS ─────────────────────────────────────────────────────────────
+function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+function confirmDelete(fn) { pendingDeleteFn=fn; document.getElementById('confirmModal').classList.remove('hidden'); }
+document.getElementById('confirmDeleteBtn').addEventListener('click', () => { if (pendingDeleteFn) pendingDeleteFn(); closeModal('confirmModal'); pendingDeleteFn=null; });
+document.getElementById('confirmModal').addEventListener('click', e => { if (e.target.id==='confirmModal') closeModal('confirmModal'); });
 
-// ─── INITIAL RENDER ─────────────────────────────────────────────────────────
-renderServices();
-renderTestimonials();
-renderArticles();
-renderContact();
-
-// If already logged in from previous session tab, show admin indicators
-if(isAdmin){renderServices();renderTestimonials();renderArticles();}
+// ─── INIT ─────────────────────────────────────────────────────────────────
+injectLogo('navLogo');
+injectLogo('footerLogo');
+loadAll();
 </script>
 </body>
 </html>
