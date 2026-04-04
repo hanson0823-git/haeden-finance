@@ -483,9 +483,9 @@ const SVC_LAYOUT = [{id:1,col:8},{id:2,col:4},{id:3,col:4},{id:4,col:8},{id:5,co
 async function loadAll() {
   try {
     const [svcs, arts, tests, sets] = await Promise.all([
-      sbGet('services', '?order=display_order'),
-      sbGet('articles', '?order=created_at'),
-      sbGet('testimonials', '?order=display_order'),
+      sbGet('services', '?order=id'),
+      sbGet('articles', '?order=id'),
+      sbGet('testimonials', '?order=id'),
       sbGet('settings', '?select=key,value'),
     ]);
     services     = Array.isArray(svcs)  ? svcs  : [];
