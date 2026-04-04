@@ -258,15 +258,15 @@
     <div class="flex items-center gap-3">
       <div id="footerLogo" class="w-9 h-9 flex-shrink-0"></div>
       <div>
-        <div class="text-lg font-black text-gold font-headline">Haeden Finance</div>
-        <p class="text-xs text-white/35">© 2025 Haeden Finance. All rights reserved. Australian Credit Licence 123456.</p>
+        <div id="footerCompany" class="text-lg font-black text-gold font-headline">Haeden Finance</div>
+        <p id="footerCopyright" class="text-xs text-white/35">© 2025 Haeden Finance. All rights reserved. Australian Credit Licence 123456.</p>
       </div>
     </div>
     <div class="flex flex-wrap justify-center gap-8 items-center">
-      <a class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Privacy Policy</a>
-      <a class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Terms of Service</a>
-      <a class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Credit Guide</a>
-      <a class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Disclosures</a>
+      <a id="footerLink1" class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Privacy Policy</a>
+      <a id="footerLink2" class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Terms of Service</a>
+      <a id="footerLink3" class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Credit Guide</a>
+      <a id="footerLink4" class="text-xs text-white/35 hover:text-gold transition-colors" href="#">Disclosures</a>
       <button id="adminLoginBtn" class="text-xs text-white/15 hover:text-white/40 transition-colors">Admin</button>
     </div>
   </div>
@@ -322,6 +322,7 @@
     <button class="tab-btn" onclick="switchTab('testimonials')">Testimonials</button>
     <button class="tab-btn" onclick="switchTab('resources')">Resources</button>
     <button class="tab-btn" onclick="switchTab('contact')">Contact</button>
+    <button class="tab-btn" onclick="switchTab('footer')">Footer</button>
     <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
   </div>
   <div id="cmsContent" class="flex-1 overflow-y-auto p-6 bg-gray-50"></div>
@@ -512,6 +513,7 @@ async function loadAll() {
     renderTestimonials();
     renderArticles();
     renderContact();
+    renderFooter();
   } catch(e) {
     console.error('Supabase load error:', e);
   }
@@ -624,6 +626,7 @@ function renderCMSContent() {
   else if (currentTab === 'testimonials') el.innerHTML = renderCMSTestimonials();
   else if (currentTab === 'resources')    el.innerHTML = renderCMSResources();
   else if (currentTab === 'contact')      el.innerHTML = renderCMSContact();
+  else if (currentTab === 'footer')       el.innerHTML = renderCMSFooter();
   else if (currentTab === 'settings')     el.innerHTML = renderCMSSettings();
 }
 
@@ -681,6 +684,36 @@ function renderCMSContact() {
     <button type="submit" class="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:bg-gold-dark">Save Contact Info</button>
     <p id="contactSaved" class="hidden text-center text-green-600 text-sm font-semibold">✓ Saved successfully</p>
   </form>`;
+}
+function renderCMSFooter() {
+  const defaults = ['Privacy Policy','Terms of Service','Credit Guide','Disclosures'];
+  return `<form id="footerForm" class="space-y-5">
+    <p class="text-xs text-ink-muted mb-2">Update footer text and links shown at the bottom of every page.</p>
+    <div><label class="field-label">Company Name</label><input id="ffCompany" type="text" value="${settings.footer_company||'Haeden Finance'}" class="field-input"/></div>
+    <div><label class="field-label">Copyright / Licence Line</label><input id="ffCopyright" type="text" value="${settings.footer_copyright||'© 2025 Haeden Finance. All rights reserved. Australian Credit Licence 123456.'}" class="field-input"/></div>
+    <p class="field-label pt-2">Footer Links (label + URL)</p>
+    ${[1,2,3,4].map(i => `
+    <div class="bg-gray-50 rounded-lg p-3 space-y-2 border border-gray-100">
+      <p class="text-xs font-bold text-navy">Link ${i}</p>
+      <input id="ffLink${i}Label" type="text" placeholder="Link label" value="${settings['footer_link'+i+'_label']||defaults[i-1]}" class="field-input"/>
+      <input id="ffLink${i}Url" type="url" placeholder="https://…" value="${settings['footer_link'+i+'_url']||''}" class="field-input"/>
+    </div>`).join('')}
+    <button type="submit" class="w-full bg-gold text-navy font-bold py-3 rounded-xl hover:bg-gold-dark">Save Footer</button>
+    <p id="footerSaved" class="hidden text-center text-green-600 text-sm font-semibold">✓ Saved successfully</p>
+  </form>`;
+}
+function renderFooter() {
+  const co = settings.footer_company    || 'Haeden Finance';
+  const cr = settings.footer_copyright || '© 2025 Haeden Finance. All rights reserved. Australian Credit Licence 123456.';
+  const defaults = ['Privacy Policy','Terms of Service','Credit Guide','Disclosures'];
+  document.getElementById('footerCompany').textContent  = co;
+  document.getElementById('footerCopyright').textContent = cr;
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById('footerLink'+i);
+    if (!el) continue;
+    el.textContent = settings['footer_link'+i+'_label'] || defaults[i-1];
+    el.href        = settings['footer_link'+i+'_url']   || '#';
+  }
 }
 function renderCMSSettings() {
   return `<div class="space-y-6">
@@ -878,6 +911,21 @@ document.getElementById('cmsContent').addEventListener('submit', async e => {
     await sbUpsert('settings', [{ key:'address', value:contactInfo.address }, { key:'email', value:contactInfo.email }, { key:'phone', value:contactInfo.phone }]);
     renderContact();
     const msg = document.getElementById('contactSaved'); msg.classList.remove('hidden'); setTimeout(() => msg.classList.add('hidden'), 3000);
+  }
+  if (e.target.id === 'footerForm') {
+    e.preventDefault();
+    const pairs = [
+      { key:'footer_company',   value: document.getElementById('ffCompany').value.trim() },
+      { key:'footer_copyright', value: document.getElementById('ffCopyright').value.trim() },
+    ];
+    for (let i = 1; i <= 4; i++) {
+      pairs.push({ key:'footer_link'+i+'_label', value: document.getElementById('ffLink'+i+'Label').value.trim() });
+      pairs.push({ key:'footer_link'+i+'_url',   value: document.getElementById('ffLink'+i+'Url').value.trim() });
+    }
+    pairs.forEach(p => { settings[p.key] = p.value; });
+    await sbUpsert('settings', pairs);
+    renderFooter();
+    const msg = document.getElementById('footerSaved'); msg.classList.remove('hidden'); setTimeout(() => msg.classList.add('hidden'), 3000);
   }
   if (e.target.id === 'pwForm') {
     e.preventDefault();
