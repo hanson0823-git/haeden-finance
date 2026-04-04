@@ -45,10 +45,20 @@
 
 <template id="logoTpl">
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-    <rect width="100" height="100" fill="#000" rx="10"/>
-    <path d="M59,87 L84,87 L84,44 L50,13 L16,44 L16,87" fill="none" stroke="#F5C200" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <line x1="20" y1="83" x2="63" y2="35" stroke="#F5C200" stroke-width="6.5" stroke-linecap="round"/>
-    <polyline points="47,30 65,30 65,49" fill="none" stroke="#F5C200" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect width="100" height="100" fill="#000" rx="8"/>
+    <!-- House outline: thick bold stroke, no fill -->
+    <path d="M50,8 L11,40 L11,88 L89,88 L89,40 Z"
+          fill="none" stroke="#F5C200" stroke-width="10"
+          stroke-linejoin="miter" stroke-miterlimit="6"/>
+    <!-- Arrow diagonal shaft (lower-left to upper-right) -->
+    <line x1="20" y1="80" x2="72" y2="28"
+          stroke="#F5C200" stroke-width="10" stroke-linecap="butt"/>
+    <!-- Arrowhead: horizontal arm going left from tip -->
+    <line x1="72" y1="28" x2="55" y2="28"
+          stroke="#F5C200" stroke-width="10" stroke-linecap="square"/>
+    <!-- Arrowhead: vertical arm going down from tip -->
+    <line x1="72" y1="28" x2="72" y2="45"
+          stroke="#F5C200" stroke-width="10" stroke-linecap="square"/>
   </svg>
 </template>
 
