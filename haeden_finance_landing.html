@@ -28,6 +28,17 @@
   textarea.field-input{resize:vertical}
   .upload-btn{display:flex;align-items:center;justify-content:center;gap:.5rem;border:2px dashed #F0EAD8;border-radius:.5rem;padding:.75rem;cursor:pointer;transition:border-color .2s;font-size:.8rem;font-weight:600;color:#5A5A6A}
   .upload-btn:hover{border-color:#F5C200;color:#0D1B2A}
+  /* Mobile Menu */
+  #mobileMenu{position:fixed;top:56px;left:0;width:100%;background:#0D1B2A;z-index:49;transform:translateY(-110%);transition:transform .3s cubic-bezier(.4,0,.2,1);box-shadow:0 8px 32px rgba(0,0,0,.4)}
+  #mobileMenu.open{transform:translateY(0)}
+  /* Article Reader Modal */
+  #articleReaderModal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:600;display:flex;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
+  #articleReaderModal.hidden{display:none}
+  .article-content p{margin-bottom:1rem;line-height:1.75}
+  .article-content h2{font-size:1.25rem;font-weight:700;margin:1.5rem 0 .75rem;color:#0D1B2A}
+  .article-content h3{font-size:1.1rem;font-weight:700;margin:1.25rem 0 .5rem;color:#0D1B2A}
+  .article-content ul{list-style:disc;padding-left:1.5rem;margin-bottom:1rem}
+  .article-content li{margin-bottom:.4rem;line-height:1.6}
 </style>
 </head>
 <body class="bg-cream text-ink font-body">
@@ -57,9 +68,24 @@
       <a class="text-sm font-semibold text-white/60 hover:text-white transition-colors" href="#contact">Contact</a>
       <a href="#contact" class="bg-gold text-navy px-6 py-2.5 rounded-lg font-bold text-sm hover:bg-gold-dark transition-colors">Apply Now</a>
     </div>
-    <button class="md:hidden text-white"><span class="material-symbols-outlined">menu</span></button>
+    <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden text-white p-1"><span id="mobileMenuIcon" class="material-symbols-outlined">menu</span></button>
   </div>
 </nav>
+
+<!-- MOBILE MENU DRAWER -->
+<div id="mobileMenu">
+  <div class="flex flex-col py-4 px-6 space-y-1">
+    <a onclick="closeMobileMenu()" class="text-white/70 hover:text-white hover:bg-white/5 font-semibold py-3 px-4 rounded-lg transition-colors" href="#philosophy">Our Philosophy</a>
+    <a onclick="closeMobileMenu()" class="text-white/70 hover:text-white hover:bg-white/5 font-semibold py-3 px-4 rounded-lg transition-colors" href="#services">Services</a>
+    <a onclick="closeMobileMenu()" class="text-white/70 hover:text-white hover:bg-white/5 font-semibold py-3 px-4 rounded-lg transition-colors" href="#process">How It Works</a>
+    <a onclick="closeMobileMenu()" class="text-white/70 hover:text-white hover:bg-white/5 font-semibold py-3 px-4 rounded-lg transition-colors" href="#reviews">Testimonials</a>
+    <a onclick="closeMobileMenu()" class="text-white/70 hover:text-white hover:bg-white/5 font-semibold py-3 px-4 rounded-lg transition-colors" href="#resources">Resources</a>
+    <a onclick="closeMobileMenu()" class="text-white/70 hover:text-white hover:bg-white/5 font-semibold py-3 px-4 rounded-lg transition-colors" href="#contact">Contact</a>
+    <div class="pt-2 pb-1">
+      <a onclick="closeMobileMenu()" href="#contact" class="block bg-gold text-navy px-6 py-3 rounded-lg font-bold text-sm hover:bg-gold-dark transition-colors text-center">Apply Now</a>
+    </div>
+  </div>
+</div>
 
 <main class="pt-16">
 
@@ -236,6 +262,25 @@
   </div>
 </footer>
 
+<!-- ARTICLE READER MODAL -->
+<div id="articleReaderModal" class="hidden">
+  <div class="bg-white rounded-2xl w-full max-w-2xl my-8 shadow-2xl overflow-hidden">
+    <div id="articleReaderHeader" class="h-52 relative flex items-end">
+      <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent z-10"></div>
+      <div class="relative z-20 p-7">
+        <span id="articleReaderCategory" class="text-xs font-bold uppercase tracking-widest bg-gold text-navy px-3 py-1 rounded-full"></span>
+        <h2 id="articleReaderTitle" class="font-headline font-extrabold text-white text-2xl mt-3 leading-snug"></h2>
+      </div>
+    </div>
+    <div class="p-8">
+      <div id="articleReaderBody" class="article-content text-ink-muted text-base leading-relaxed"></div>
+      <div class="mt-8 pt-6 border-t border-cream-dark flex justify-end">
+        <button onclick="closeArticleReader()" class="bg-navy text-white font-bold px-8 py-3 rounded-lg hover:bg-navy-mid transition-colors">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- ADMIN LOGIN MODAL -->
 <div id="loginModal" class="modal-bd hidden">
   <div class="bg-white rounded-2xl p-8 max-w-sm w-full shadow-2xl">
@@ -317,7 +362,8 @@
       <input type="hidden" id="articleImageUrl"/>
       <div><label class="field-label">Category Tag</label><input id="articleCategory" type="text" placeholder="e.g. First Home Buyers" class="field-input"/></div>
       <div><label class="field-label">Title</label><input id="articleTitle" type="text" class="field-input"/></div>
-      <div><label class="field-label">Summary</label><textarea id="articleExcerpt" rows="3" class="field-input"></textarea></div>
+      <div><label class="field-label">Summary <span class="normal-case font-normal text-ink-muted">(shown on card)</span></label><textarea id="articleExcerpt" rows="3" class="field-input"></textarea></div>
+      <div><label class="field-label">Full Article Content <span class="normal-case font-normal text-ink-muted">(shown when "Read more" is clicked)</span></label><textarea id="articleContent" rows="8" class="field-input" placeholder="Write the full article here…"></textarea></div>
       <div>
         <label class="field-label">Article Image (optional — shown as card header)</label>
         <div id="articleImgPreview" class="hidden mb-2 rounded-lg overflow-hidden h-32 bg-gray-100"><img id="articleImgPreviewImg" class="w-full h-full object-cover"/></div>
@@ -431,7 +477,7 @@ let isAdmin      = sessionStorage.getItem('hf_admin') === '1';
 let currentTab   = 'services';
 let pendingDeleteFn = null;
 
-const SVC_LAYOUT = [{id:1,col:8},{id:2,col:4},{id:4,col:4},{id:3,col:8},{id:5,col:4},{id:6,col:4},{id:7,col:4}];
+const SVC_LAYOUT = [{id:1,col:8},{id:2,col:4},{id:3,col:4},{id:4,col:8},{id:5,col:4},{id:6,col:4},{id:7,col:4}];
 
 // ─── LOAD ALL DATA ─────────────────────────────────────────────────────────
 async function loadAll() {
@@ -521,12 +567,12 @@ function renderArticles() {
   if (!articles.length) { grid.innerHTML = '<p class="text-ink-muted col-span-3 text-center py-12">No articles yet — add some from the admin panel.</p>'; return; }
   const editBtns = id => isAdmin ? `<div class="absolute top-3 right-3 flex gap-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"><button onclick="openArticleModal('${id}')" class="bg-gold text-navy text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">edit</span></button><button onclick="confirmDelete(()=>deleteArticle('${id}'))" class="bg-white text-red-500 text-xs font-bold px-3 py-1.5 rounded-lg"><span class="material-symbols-outlined text-sm">delete</span></button></div>` : '';
   grid.innerHTML = articles.map(a => `
-    <article class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer relative">
+    <article onclick="openArticleReader('${a.id}')" class="bg-white rounded-xl overflow-hidden hover:shadow-xl transition-shadow group cursor-pointer relative">
       ${editBtns(a.id)}
       ${a.image_url
         ? `<div class="h-44 overflow-hidden"><img src="${a.image_url}" alt="${a.title}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/></div>`
         : `<div class="${artBg(a.bg||'navy')} h-44 flex items-center justify-center"><span class="material-symbols-outlined" style="font-size:3.5rem">${a.icon||'description'}</span></div>`}
-      <div class="p-7"><span class="text-xs font-bold uppercase tracking-widest text-gold-dark bg-gold/10 px-3 py-1 rounded-full">${a.category}</span><h3 class="font-headline font-bold text-navy mt-4 mb-3 leading-snug group-hover:text-gold-dark transition-colors">${a.title}</h3><p class="text-ink-muted text-sm leading-relaxed mb-5">${a.summary||''}</p><span class="text-gold-dark font-bold text-sm">Read more →</span></div>
+      <div class="p-7"><span class="text-xs font-bold uppercase tracking-widest text-gold-dark bg-gold/10 px-3 py-1 rounded-full">${a.category}</span><h3 class="font-headline font-bold text-navy mt-4 mb-3 leading-snug group-hover:text-gold-dark transition-colors">${a.title}</h3><p class="text-ink-muted text-sm leading-relaxed mb-5">${a.summary||''}</p><span class="text-gold-dark font-bold text-sm group-hover:underline">Read more →</span></div>
     </article>`).join('');
 }
 
@@ -709,6 +755,7 @@ function openArticleModal(id) {
   document.getElementById('articleCategory').value = a ? (a.category||'') : '';
   document.getElementById('articleTitle').value    = a ? (a.title||'') : '';
   document.getElementById('articleExcerpt').value  = a ? (a.summary||'') : '';
+  document.getElementById('articleContent').value  = a ? (a.content||'') : '';
   document.getElementById('articleIcon').value     = a ? (a.icon||'percent') : 'percent';
   document.getElementById('articleBg').value       = a ? (a.bg||'navy') : 'navy';
   document.getElementById('articleImageUrl').value = a ? (a.image_url||'') : '';
@@ -726,7 +773,7 @@ document.getElementById('articleForm').addEventListener('submit', async e => {
   btn.textContent = 'Saving…'; btn.disabled = true;
   try {
     if (file) image_url = await uploadImage(file);
-    const data = { category: document.getElementById('articleCategory').value.trim(), title: document.getElementById('articleTitle').value.trim(), summary: document.getElementById('articleExcerpt').value.trim(), icon: document.getElementById('articleIcon').value, bg: document.getElementById('articleBg').value, image_url };
+    const data = { category: document.getElementById('articleCategory').value.trim(), title: document.getElementById('articleTitle').value.trim(), summary: document.getElementById('articleExcerpt').value.trim(), content: document.getElementById('articleContent').value.trim(), icon: document.getElementById('articleIcon').value, bg: document.getElementById('articleBg').value, image_url };
     if (!data.title || !data.category) { btn.textContent='Save Article'; btn.disabled=false; return; }
     if (id) {
       await sbUpdate('articles', `id=eq.${id}`, data);
@@ -813,6 +860,64 @@ document.getElementById('loginForm').addEventListener('submit', e => {
 });
 function closeLoginModal() { document.getElementById('loginModal').classList.add('hidden'); document.getElementById('loginPw').value=''; document.getElementById('loginError').classList.add('hidden'); }
 document.getElementById('loginModal').addEventListener('click', e => { if (e.target.id==='loginModal') closeLoginModal(); });
+
+// ─── MOBILE MENU ──────────────────────────────────────────────────────────
+function toggleMobileMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const icon = document.getElementById('mobileMenuIcon');
+  const isOpen = menu.classList.toggle('open');
+  icon.textContent = isOpen ? 'close' : 'menu';
+}
+function closeMobileMenu() {
+  document.getElementById('mobileMenu').classList.remove('open');
+  document.getElementById('mobileMenuIcon').textContent = 'menu';
+}
+// Close mobile menu when clicking outside nav/drawer
+document.addEventListener('click', e => {
+  const menu = document.getElementById('mobileMenu');
+  if (!menu.classList.contains('open')) return;
+  if (!menu.contains(e.target) && !document.getElementById('mobileMenuBtn').contains(e.target)) {
+    closeMobileMenu();
+  }
+});
+
+// ─── ARTICLE READER ───────────────────────────────────────────────────────
+function openArticleReader(id) {
+  const a = articles.find(x => String(x.id) === String(id));
+  if (!a) return;
+
+  const header = document.getElementById('articleReaderHeader');
+  if (a.image_url) {
+    header.style.backgroundImage = `url('${a.image_url}')`;
+    header.style.backgroundSize  = 'cover';
+    header.style.backgroundPosition = 'center';
+    header.className = 'h-52 relative flex items-end';
+  } else {
+    header.style.backgroundImage = '';
+    header.className = `h-52 relative flex items-end ${artBg(a.bg || 'navy')}`;
+  }
+
+  document.getElementById('articleReaderCategory').textContent = a.category || '';
+  document.getElementById('articleReaderTitle').textContent    = a.title || '';
+
+  const body = document.getElementById('articleReaderBody');
+  if (a.content && a.content.trim()) {
+    // Render line breaks as paragraphs
+    body.innerHTML = a.content.split(/\n\n+/).map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+  } else {
+    body.innerHTML = `<p>${a.summary || ''}</p><p class="text-ink-light text-sm mt-4 italic">No full article content yet. Add it from the admin panel.</p>`;
+  }
+
+  document.getElementById('articleReaderModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeArticleReader() {
+  document.getElementById('articleReaderModal').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.getElementById('articleReaderModal').addEventListener('click', e => {
+  if (e.target.id === 'articleReaderModal') closeArticleReader();
+});
 
 // ─── HELPERS ─────────────────────────────────────────────────────────────
 function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
