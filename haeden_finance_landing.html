@@ -530,7 +530,7 @@ function injectLogo(elId) {
     // Custom logo: show full image, hide the separate brand text
     const img = document.createElement('img');
     img.src = settings.logo_image;
-    img.style.cssText = 'height:72px;max-width:360px;display:block;object-fit:contain';
+    img.style.cssText = 'height:100px;max-width:400px;display:block;object-fit:contain';
     el.appendChild(img);
     if (isNav)    { const b = document.getElementById('navBrand');       if (b) b.style.display = 'none'; }
     if (isFooter) { const b = document.getElementById('footerBrandText'); if (b) b.style.display = 'none'; }
