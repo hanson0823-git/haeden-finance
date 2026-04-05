@@ -18,7 +18,7 @@
   .cms-panel{position:fixed;top:0;right:-540px;width:540px;height:100vh;background:#fff;z-index:300;box-shadow:-8px 0 40px rgba(0,0,0,.18);transition:right .35s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column}
   .cms-panel.open{right:0}
   @media(max-width:560px){.cms-panel{width:100vw;right:-100vw}}
-  .tab-btn{padding:.6rem 1rem;font-weight:700;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;border-bottom:3px solid transparent;color:#5A5A6A;white-space:nowrap;transition:all .2s}
+  .tab-btn{padding:.6rem .7rem;font-weight:700;font-size:.65rem;text-transform:uppercase;letter-spacing:.06em;border-bottom:3px solid transparent;color:#5A5A6A;white-space:nowrap;transition:all .2s;flex-shrink:0}
   .tab-btn.active{color:#0D1B2A;border-color:#F5C200}
   .svc-theme-gold{background:#F5C200;color:#0D1B2A}
   .svc-theme-white{background:#fff;color:#0D1B2A}
@@ -319,11 +319,11 @@
   </div>
   <div class="flex border-b border-gray-100 overflow-x-auto flex-shrink-0 px-2">
     <button class="tab-btn active" onclick="switchTab('services')">Services</button>
-    <button class="tab-btn" onclick="switchTab('testimonials')">Testimonials</button>
-    <button class="tab-btn" onclick="switchTab('resources')">Resources</button>
+    <button class="tab-btn" onclick="switchTab('testimonials')">Reviews</button>
+    <button class="tab-btn" onclick="switchTab('resources')">Articles</button>
     <button class="tab-btn" onclick="switchTab('contact')">Contact</button>
     <button class="tab-btn" onclick="switchTab('footer')">Footer</button>
-    <button class="tab-btn" onclick="switchTab('settings')">Settings</button>
+    <button class="tab-btn" onclick="switchTab('settings')">Images</button>
   </div>
   <div id="cmsContent" class="flex-1 overflow-y-auto p-6 bg-gray-50"></div>
 </div>
