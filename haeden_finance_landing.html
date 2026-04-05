@@ -66,8 +66,8 @@
 <nav class="fixed top-0 w-full z-50 bg-black backdrop-blur-xl shadow-lg">
   <div class="flex justify-between items-center px-8 py-3.5 max-w-screen-xl mx-auto">
     <div class="flex items-center gap-3">
-      <div id="navLogo" class="w-9 h-9 flex-shrink-0"></div>
-      <span class="text-xl font-black tracking-tighter text-gold font-headline">Haeden Finance</span>
+      <div id="navLogo" class="flex-shrink-0"></div>
+      <span id="navBrand" class="text-xl font-black tracking-tighter text-gold font-headline">Haeden Finance</span>
     </div>
     <div class="hidden md:flex items-center space-x-7">
       <a class="text-sm font-semibold text-white/60 hover:text-white transition-colors" href="#philosophy">Our Philosophy</a>
@@ -256,8 +256,8 @@
 <footer class="bg-black">
   <div class="max-w-screen-xl mx-auto px-8 py-12 flex flex-col md:flex-row justify-between items-center border-t border-white/10 gap-6">
     <div class="flex items-center gap-3">
-      <div id="footerLogo" class="w-9 h-9 flex-shrink-0"></div>
-      <div>
+      <div id="footerLogo" class="flex-shrink-0"></div>
+      <div id="footerBrandText">
         <div id="footerCompany" class="text-lg font-black text-gold font-headline">Haeden Finance</div>
         <p id="footerCopyright" class="text-xs text-white/35">© 2025 Haeden Finance. All rights reserved. Australian Credit Licence 123456.</p>
       </div>
@@ -524,17 +524,25 @@ function injectLogo(elId) {
   const el = document.getElementById(elId);
   if (!el) return;
   el.innerHTML = '';
+  const isNav    = elId === 'navLogo';
+  const isFooter = elId === 'footerLogo';
   if (settings.logo_image) {
+    // Custom logo: show full image, hide the separate brand text
     const img = document.createElement('img');
     img.src = settings.logo_image;
-    img.style.cssText = 'width:36px;height:36px;display:block;object-fit:contain';
+    img.style.cssText = 'height:36px;max-width:180px;display:block;object-fit:contain';
     el.appendChild(img);
+    if (isNav)    { const b = document.getElementById('navBrand');       if (b) b.style.display = 'none'; }
+    if (isFooter) { const b = document.getElementById('footerBrandText'); if (b) b.style.display = 'none'; }
   } else {
+    // Default: small SVG icon, show brand text normally
     const tpl  = document.getElementById('logoTpl');
     const node = tpl.content.cloneNode(true);
     const svg  = node.querySelector('svg');
     svg.style.cssText = 'width:36px;height:36px;display:block';
     el.appendChild(svg);
+    if (isNav)    { const b = document.getElementById('navBrand');       if (b) b.style.display = ''; }
+    if (isFooter) { const b = document.getElementById('footerBrandText'); if (b) b.style.display = ''; }
   }
 }
 
