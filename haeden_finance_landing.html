@@ -5,6 +5,7 @@
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Haeden Finance | Australia's Trusted Mortgage Partner</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
 <script>
@@ -35,10 +36,17 @@
   #articleReaderModal{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:600;display:flex;align-items:flex-start;justify-content:center;padding:1rem;overflow-y:auto}
   #articleReaderModal.hidden{display:none}
   .article-content p{margin-bottom:1rem;line-height:1.75}
+  .article-content h1{font-size:1.5rem;font-weight:800;margin:1.75rem 0 .75rem;color:#0D1B2A}
   .article-content h2{font-size:1.25rem;font-weight:700;margin:1.5rem 0 .75rem;color:#0D1B2A}
   .article-content h3{font-size:1.1rem;font-weight:700;margin:1.25rem 0 .5rem;color:#0D1B2A}
   .article-content ul{list-style:disc;padding-left:1.5rem;margin-bottom:1rem}
+  .article-content ol{list-style:decimal;padding-left:1.5rem;margin-bottom:1rem}
   .article-content li{margin-bottom:.4rem;line-height:1.6}
+  .article-content strong{font-weight:700;color:#0D1B2A}
+  .article-content em{font-style:italic}
+  .article-content blockquote{border-left:4px solid #F5C200;padding-left:1rem;margin:1rem 0;color:#5A5A6A;font-style:italic}
+  .article-content a{color:#C69B00;text-decoration:underline}
+  .article-content hr{border:none;border-top:1px solid #F0EAD8;margin:1.5rem 0}
 </style>
 </head>
 <body class="bg-cream text-ink font-body">
@@ -1019,8 +1027,7 @@ function openArticleReader(id) {
 
   const body = document.getElementById('articleReaderBody');
   if (a.content && a.content.trim()) {
-    // Render line breaks as paragraphs
-    body.innerHTML = a.content.split(/\n\n+/).map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
+    body.innerHTML = typeof marked !== 'undefined' ? marked.parse(a.content) : a.content.split(/\n\n+/).map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('');
   } else {
     body.innerHTML = `<p>${a.summary || ''}</p><p class="text-ink-light text-sm mt-4 italic">No full article content yet. Add it from the admin panel.</p>`;
   }
