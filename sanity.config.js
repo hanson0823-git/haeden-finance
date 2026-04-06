@@ -6,6 +6,7 @@ import { schemaTypes } from './sanity/schemas';
 export default defineConfig({
   name: 'haeden-finance',
   title: 'Haeden Finance CMS',
+  basePath: '/studio',
 
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || 'your-project-id',
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
