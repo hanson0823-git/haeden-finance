@@ -1,9 +1,3 @@
 {
-  "buildCommand": null,
-  "outputDirectory": ".",
-  "installCommand": null,
-  "framework": null,
-  "rewrites": [
-    { "source": "/", "destination": "/haeden_finance_landing.html" }
-  ]
+  "framework": "nextjs"
 }
