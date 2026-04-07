@@ -140,7 +140,7 @@ export default function ResourcesSection({ articles }) {
             className="inline-flex items-center gap-3 font-headline font-bold text-base px-8 py-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5"
             style={{ background: '#0D1B2A', color: 'white' }}
           >
-            View All Resources
+            View All Articles
             <span className="material-symbols-outlined text-xl">arrow_forward</span>
           </Link>
         </div>
