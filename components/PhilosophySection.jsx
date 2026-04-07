@@ -22,7 +22,7 @@ const features = [
 ];
 
 export default function PhilosophySection({ settings }) {
-  const philosophyImage = settings?.philosophyImage?.asset?.url;
+  const philosophyImage = settings?.philosophyImage?.asset?.url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuChxP4_IbFfNDE4q3OPB8PHnTsmdI2_wEHgQuyaSr5lxqoEQYkGLHR38BliyTZmzmthvZNBy_QU090eRTz3FPpOx0KVeNEoEhe7Cjo_ESGvIfWyOz0kHbDkOlXFrrTRHt468FZuwRhRxLwLKgT5uUK1Oyl6q7XZ0thv0NVqt1eYq1b9bbtljmrYKiRLyKnW6iCaFeU5xrzwrViuJ1mHIzSLPhWgFr8otbit4S8cpA0sYVtF7chWXUZyb7W0XhmfOVXsdcaZuQ_dxZs';
   const heading = settings?.philosophyHeading || 'The Haeden Partnership';
   const body =
     settings?.philosophyBody ||
