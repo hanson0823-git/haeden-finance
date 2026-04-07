@@ -59,13 +59,77 @@ const articles = [
   },
 ];
 
+const challengeCards = [
+  {
+    _type: 'challengeCard',
+    title: 'First Home Buyers',
+    description: 'Navigating your first home loan can feel overwhelming. We simplify the process, help you access government grants, and get you into your first home sooner.',
+    icon: 'family_restroom',
+    theme: 'dark',
+    isCta: false,
+    order: 1,
+  },
+  {
+    _type: 'challengeCard',
+    title: 'Self-Employed Buyers',
+    description: "Complex income structures shouldn't hold you back. We know which lenders understand self-employment and how to present your financials in the best light.",
+    icon: 'work',
+    theme: 'dark',
+    isCta: false,
+    order: 2,
+  },
+  {
+    _type: 'challengeCard',
+    title: 'Property Investors',
+    description: 'Building a portfolio requires smart financing. We structure your loans to maximise borrowing power, tax efficiency, and long-term growth potential.',
+    icon: 'trending_up',
+    theme: 'dark',
+    isCta: false,
+    order: 3,
+  },
+  {
+    _type: 'challengeCard',
+    title: 'Refinancers',
+    description: 'Are you paying too much? We review your current loan, compare hundreds of options, and move your mortgage to a better deal — often saving thousands.',
+    icon: 'refresh',
+    theme: 'dark',
+    isCta: false,
+    order: 4,
+  },
+  {
+    _type: 'challengeCard',
+    title: 'Credit-Challenged Buyers',
+    description: "A difficult credit history doesn't have to mean no. We have access to specialist lenders who assess applications on merit, not just credit scores.",
+    icon: 'credit_score',
+    theme: 'dark',
+    isCta: false,
+    order: 5,
+  },
+  {
+    _type: 'challengeCard',
+    title: 'Your Situation',
+    description: "Every client is different. Whatever your circumstances, let's have a free, no-obligation conversation about your options.",
+    icon: 'chat',
+    theme: 'gold',
+    isCta: true,
+    order: 6,
+  },
+];
+
 async function seed() {
   console.log('Seeding articles...');
   for (const article of articles) {
     const result = await client.create(article);
-    console.log(`Created: ${result.title} (${result._id})`);
+    console.log(`Created article: ${result.title} (${result._id})`);
   }
-  console.log('Done!');
+
+  console.log('\nSeeding Who We Help cards...');
+  for (const card of challengeCards) {
+    const result = await client.create(card);
+    console.log(`Created card: ${result.title} (${result._id})`);
+  }
+
+  console.log('\nDone!');
 }
 
 seed().catch(console.error);
