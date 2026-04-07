@@ -1,7 +1,7 @@
 import Image from 'next/image';
 
 export default function HeroSection({ settings }) {
-  const heroImage = settings?.heroImage?.asset?.url;
+  const heroImage = settings?.heroImage?.asset?.url || 'https://lh3.googleusercontent.com/aida-public/AB6AXuAEx17VsbkEfF7R3XgwcdKFbel1AnfnEvUb_I4rqJih6iO4KUpr_zNFUe9VxCiFx36goO73sWY1Ga5DMNLE4XAtcfHHWBiORRcvA_oscf_tVVUIgQ7bJneADUx5USZahS2WsP6SR1JjqYaR3yE1rGLkfJ5GkOjHBq1JYs8Q22oLUTp6b8hwcWUQvszZeW3d5lBUmccW8qd0skKAFrQ5d7zlN1_LdbGFMS8IYdFlmr6Pqd_OKynHziSzKat_bKJf7Knp0tF9XkTE5CA';
   const heading = settings?.heroHeading || 'Your Home Loan Partner, Every Step of the Way.';
   const tagline = settings?.tagline || "Australia's Trusted Mortgage Partner";
   const subheading =
