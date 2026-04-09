@@ -5,15 +5,28 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 // Renders Sanity Portable Text blocks as React elements
-function renderPortableText(blocks) {
-  if (!Array.isArray(blocks)) return <p style={{ color: '#5A5A6A' }}>{blocks}</p>;
+function renderPortableText(content) {
+  // Parse string JSON if needed
+  let blocks = content;
+  if (typeof content === 'string') {
+    try { blocks = JSON.parse(content); } catch {
+      return <p style={{ color: '#5A5A6A' }}>{content}</p>;
+    }
+  }
+
+  // If it's an object with a body field (nested post structure), extract body
+  if (!Array.isArray(blocks) && blocks?.body) blocks = blocks.body;
+
+  // If still not an array, render as string
+  if (!Array.isArray(blocks)) return <p style={{ color: '#5A5A6A' }}>{String(content)}</p>;
+
   return blocks.map((block, i) => {
     if (block._type !== 'block' || !block.children) return null;
     const text = block.children.map((span, j) => {
-      const content = span.text || '';
-      if (span.marks?.includes('strong')) return <strong key={j}>{content}</strong>;
-      if (span.marks?.includes('em')) return <em key={j}>{content}</em>;
-      return content;
+      const txt = span.text || '';
+      if (span.marks?.includes('strong')) return <strong key={j}>{txt}</strong>;
+      if (span.marks?.includes('em')) return <em key={j}>{txt}</em>;
+      return txt;
     });
     const style = { color: '#5A5A6A' };
     switch (block.style) {
