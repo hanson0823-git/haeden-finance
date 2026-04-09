@@ -1,6 +1,6 @@
 import { client, servicesQuery, testimonialsQuery, articlesQuery, settingsQuery, challengeCardsQuery } from '../lib/sanity';
 
-export const revalidate = 60; // Refetch from Sanity every 60 seconds
+export const dynamic = 'force-dynamic'; // Always fetch fresh data from Sanity
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import PhilosophySection from '../components/PhilosophySection';

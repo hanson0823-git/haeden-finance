@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { client, articlesQuery } from '../../../lib/sanity';
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
   try {
     const articles = await client.fetch(articlesQuery);
