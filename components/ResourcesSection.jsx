@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { PortableText } from '@portabletext/react';
 
 export const defaultArticles = [
   { _id: '1', category: 'First Home Buyers', title: 'The Complete Guide to Your First Home Loan in 2024', summary: 'Everything you need to know about buying your first home in Australia — from saving your deposit to getting the keys. Includes government grants and schemes.', icon: 'home', bg: 'navy' },
@@ -52,9 +53,28 @@ export function ArticleModal({ article, onClose }) {
             {article.summary}
           </p>
           {article.content && (
-            <p className="font-body text-sm leading-relaxed mt-4" style={{ color: '#5A5A6A' }}>
-              {article.content}
-            </p>
+            <div className="mt-6 font-body text-sm leading-relaxed prose-haeden" style={{ color: '#5A5A6A' }}>
+              {Array.isArray(article.content)
+                ? <PortableText value={article.content} components={{
+                    block: {
+                      normal: ({children}) => <p className="mb-4">{children}</p>,
+                      h1: ({children}) => <h1 className="font-headline font-bold text-2xl mb-3 mt-5" style={{color:'#0D1B2A'}}>{children}</h1>,
+                      h2: ({children}) => <h2 className="font-headline font-bold text-xl mb-3 mt-5" style={{color:'#0D1B2A'}}>{children}</h2>,
+                      h3: ({children}) => <h3 className="font-headline font-bold text-lg mb-2 mt-4" style={{color:'#0D1B2A'}}>{children}</h3>,
+                      blockquote: ({children}) => <blockquote className="border-l-4 pl-4 italic my-4" style={{borderColor:'#F5C200'}}>{children}</blockquote>,
+                    },
+                    list: {
+                      bullet: ({children}) => <ul className="list-disc pl-5 mb-4 space-y-1">{children}</ul>,
+                      number: ({children}) => <ol className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>,
+                    },
+                    marks: {
+                      strong: ({children}) => <strong className="font-bold">{children}</strong>,
+                      em: ({children}) => <em className="italic">{children}</em>,
+                    },
+                  }} />
+                : <p>{article.content}</p>
+              }
+            </div>
           )}
         </div>
         <button
