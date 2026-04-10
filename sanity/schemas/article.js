@@ -10,9 +10,10 @@ export default defineType({
     defineField({ name: 'summary', title: 'Summary', type: 'text', rows: 2 }),
     defineField({
       name: 'content',
-      title: 'Full Article Content',
-      type: 'array',
-      of: [{ type: 'block' }],
+      title: 'Full Article Content (Markdown)',
+      type: 'text',
+      rows: 20,
+      description: 'Write in Markdown. Use ## for headings, **bold**, *italic*, - for lists.',
     }),
     defineField({ name: 'icon', title: 'Material Icon Name', type: 'string', description: 'e.g. home, trending_up, account_balance' }),
     defineField({

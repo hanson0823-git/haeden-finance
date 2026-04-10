@@ -3,41 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-// Renders Sanity Portable Text blocks as React elements
-function renderPortableText(content) {
-  // Parse string JSON if needed
-  let blocks = content;
-  if (typeof content === 'string') {
-    try { blocks = JSON.parse(content); } catch {
-      return <p style={{ color: '#5A5A6A' }}>{content}</p>;
-    }
-  }
-
-  // If it's an object with a body field (nested post structure), extract body
-  if (!Array.isArray(blocks) && blocks?.body) blocks = blocks.body;
-
-  // If still not an array, render as string
-  if (!Array.isArray(blocks)) return <p style={{ color: '#5A5A6A' }}>{String(content)}</p>;
-
-  return blocks.map((block, i) => {
-    if (block._type !== 'block' || !block.children) return null;
-    const text = block.children.map((span, j) => {
-      const txt = span.text || '';
-      if (span.marks?.includes('strong')) return <strong key={j}>{txt}</strong>;
-      if (span.marks?.includes('em')) return <em key={j}>{txt}</em>;
-      return txt;
-    });
-    const style = { color: '#5A5A6A' };
-    switch (block.style) {
-      case 'h1': return <h1 key={i} className="font-headline font-bold text-2xl mb-3 mt-5" style={{ color: '#0D1B2A' }}>{text}</h1>;
-      case 'h2': return <h2 key={i} className="font-headline font-bold text-xl mb-3 mt-4" style={{ color: '#0D1B2A' }}>{text}</h2>;
-      case 'h3': return <h3 key={i} className="font-headline font-bold text-lg mb-2 mt-4" style={{ color: '#0D1B2A' }}>{text}</h3>;
-      case 'blockquote': return <blockquote key={i} className="border-l-4 pl-4 italic my-3" style={{ borderColor: '#F5C200', ...style }}>{text}</blockquote>;
-      default: return <p key={i} className="mb-3" style={style}>{text}</p>;
-    }
-  });
-}
+import ReactMarkdown from 'react-markdown';
 
 export const defaultArticles = [
   { _id: '1', category: 'First Home Buyers', title: 'The Complete Guide to Your First Home Loan in 2024', summary: 'Everything you need to know about buying your first home in Australia — from saving your deposit to getting the keys. Includes government grants and schemes.', icon: 'home', bg: 'navy' },
@@ -87,8 +53,24 @@ export function ArticleModal({ article, onClose }) {
             {article.summary}
           </p>
           {article.content && (
-            <div className="mt-6 font-body text-sm leading-relaxed">
-              {renderPortableText(article.content)}
+            <div className="mt-6 font-body text-sm leading-relaxed prose prose-sm max-w-none"
+              style={{ color: '#5A5A6A' }}>
+              <ReactMarkdown
+                components={{
+                  h1: ({children}) => <h1 className="font-headline font-bold text-2xl mb-3 mt-5" style={{ color: '#0D1B2A' }}>{children}</h1>,
+                  h2: ({children}) => <h2 className="font-headline font-bold text-xl mb-3 mt-4" style={{ color: '#0D1B2A' }}>{children}</h2>,
+                  h3: ({children}) => <h3 className="font-headline font-bold text-lg mb-2 mt-3" style={{ color: '#0D1B2A' }}>{children}</h3>,
+                  p:  ({children}) => <p className="mb-3" style={{ color: '#5A5A6A' }}>{children}</p>,
+                  strong: ({children}) => <strong style={{ color: '#0D1B2A' }}>{children}</strong>,
+                  ul: ({children}) => <ul className="list-disc pl-5 mb-3 space-y-1">{children}</ul>,
+                  ol: ({children}) => <ol className="list-decimal pl-5 mb-3 space-y-1">{children}</ol>,
+                  li: ({children}) => <li style={{ color: '#5A5A6A' }}>{children}</li>,
+                  blockquote: ({children}) => <blockquote className="border-l-4 pl-4 italic my-3" style={{ borderColor: '#F5C200', color: '#5A5A6A' }}>{children}</blockquote>,
+                  a: ({href, children}) => <a href={href} className="underline" style={{ color: '#C69B00' }} target="_blank" rel="noopener noreferrer">{children}</a>,
+                }}
+              >
+                {article.content}
+              </ReactMarkdown>
             </div>
           )}
         </div>
