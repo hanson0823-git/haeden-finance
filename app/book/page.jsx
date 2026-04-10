@@ -1,26 +1,19 @@
-'use client';
-
-import { useEffect } from 'react';
+import { client, settingsQuery } from '../../lib/sanity';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
+import BookingCalendar from './BookingCalendar';
 
-export default function BookPage() {
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://link.msgsndr.com/js/form_embed.js';
-    script.type = 'text/javascript';
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
+export const dynamic = 'force-dynamic';
+
+export default async function BookPage() {
+  let settings = null;
+  try {
+    settings = await client.fetch(settingsQuery, {}, { cache: 'no-store' });
+  } catch {}
 
   return (
     <>
-      <Navbar />
+      <Navbar settings={settings} />
       <main>
         {/* Hero */}
         <section className="pt-32 pb-12" style={{ background: '#0D1B2A' }}>
@@ -38,17 +31,11 @@ export default function BookPage() {
         {/* Calendar embed */}
         <section style={{ background: '#FAF6EE' }}>
           <div className="container-xl py-12" style={{ maxWidth: '860px' }}>
-            <iframe
-              src="https://api.leadconnectorhq.com/widget/booking/xbAWRdcBrAyMV5p9i6EV"
-              style={{ width: '100%', border: 'none', overflow: 'hidden' }}
-              scrolling="no"
-              id="xbAWRdcBrAyMV5p9i6EV_1775780505569"
-              height="700"
-            />
+            <BookingCalendar />
           </div>
         </section>
       </main>
-      <Footer />
+      <Footer settings={settings} />
     </>
   );
 }
