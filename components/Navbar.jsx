@@ -27,9 +27,13 @@ export default function Navbar({ settings }) {
     setMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
+      // On homepage — smooth scroll to section
       const offset = 72;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
+    } else {
+      // On a sub-page — navigate to homepage with the hash
+      window.location.href = '/' + href;
     }
   };
 

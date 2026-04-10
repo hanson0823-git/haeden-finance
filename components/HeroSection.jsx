@@ -64,7 +64,7 @@ export default function HeroSection({ settings }) {
 
           {/* CTAs */}
           <div className="flex flex-wrap gap-4">
-            <a href="#contact" className="btn-gold text-base">
+            <a href="/book" className="btn-gold text-base">
               Begin Your Journey
               <span className="material-symbols-outlined text-xl">arrow_forward</span>
             </a>
