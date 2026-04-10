@@ -18,20 +18,29 @@ export async function POST(request) {
         email,
         situation,
         message,
-        // GHL standard contact fields
         name: `${firstName} ${lastName}`.trim(),
         source: 'Haeden Finance Website',
         timestamp: new Date().toISOString(),
       };
 
-      const res = await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      });
-
-      if (!res.ok) {
-        console.error('GHL webhook error:', res.status, await res.text());
+      try {
+        const controller = new AbortController();
+        const timeout = setTimeout(() => controller.abort(), 8000);
+        const res = await fetch(webhookUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          signal: controller.signal,
+        });
+        clearTimeout(timeout);
+        if (!res.ok) {
+          console.error('GHL webhook error:', res.status);
+        } else {
+          console.log('GHL webhook triggered successfully');
+        }
+      } catch (webhookErr) {
+        // Log but don't fail the form submission
+        console.error('GHL webhook call failed:', webhookErr.message);
       }
     } else {
       console.warn('GHL_WEBHOOK_URL not set — form submission not forwarded');
