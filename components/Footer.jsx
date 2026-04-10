@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 
 export default function Footer({ settings }) {
   const companyName = settings?.footerCompanyName || settings?.siteName || 'Haeden Finance';
@@ -19,18 +18,18 @@ export default function Footer({ settings }) {
           {/* Brand */}
           <div className="flex items-center gap-3">
             {settings?.logoImage?.asset?.url ? (
-              <Image src={settings.logoImage.asset.url} alt={companyName} width={32} height={32} className="h-8 w-auto" />
+              <img src={settings.logoImage.asset.url} alt={companyName} className="h-8 w-auto" />
             ) : (
-              <div className="w-8 h-8 rounded flex items-center justify-center" style={{ border: '1px solid #F5C200' }}>
-                <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
-                  <path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" stroke="#F5C200" strokeWidth="1.5" strokeLinejoin="round"/>
-                </svg>
+              <div className="flex items-center gap-3">
+                <div className="w-8 h-8 rounded flex items-center justify-center" style={{ border: '1px solid #F5C200' }}>
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" stroke="#F5C200" strokeWidth="1.5" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <p className="font-headline font-bold text-white text-sm">{companyName}</p>
               </div>
             )}
-            <div>
-              <p className="font-headline font-bold text-white text-sm">{companyName}</p>
-              <p className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>{copyright}</p>
-            </div>
+            <p className="font-body text-xs" style={{ color: 'rgba(255,255,255,0.3)' }}>{copyright}</p>
           </div>
 
           {/* Disclaimer */}

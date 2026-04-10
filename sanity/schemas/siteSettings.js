@@ -8,7 +8,7 @@ export default defineType({
   fields: [
     // Branding
     defineField({ name: 'siteName', title: 'Site Name', type: 'string', initialValue: 'Haeden Finance' }),
-    defineField({ name: 'logoImage', title: 'Logo Image', type: 'image' }),
+    defineField({ name: 'logoImage', title: 'Logo Image (SVG, PNG or JPG)', type: 'file', options: { accept: 'image/svg+xml,image/png,image/jpeg,image/webp' } }),
 
     // Hero
     defineField({ name: 'tagline', title: 'Hero Tagline (small label)', type: 'string', initialValue: "Australia's Trusted Mortgage Partner" }),

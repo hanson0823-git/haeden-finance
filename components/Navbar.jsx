@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 
 const navLinks = [
   { label: 'Our Philosophy', href: '#philosophy' },
@@ -42,21 +41,23 @@ export default function Navbar({ settings }) {
       <div className="container-xl">
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 flex-shrink-0">
+          <Link href="/" className="flex items-center flex-shrink-0">
             {settings?.logoImage?.asset?.url ? (
-              <Image src={settings.logoImage.asset.url} alt="Haeden Finance" width={40} height={40} className="h-10 w-auto" />
+              <img src={settings.logoImage.asset.url} alt="Haeden Finance" className="h-10 w-auto" />
             ) : (
-              <div className="w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#000', border: '1.5px solid #F5C200' }}>
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" stroke="#F5C200" strokeWidth="1.5" strokeLinejoin="round"/>
-                  <line x1="13" y1="7" x2="18" y2="2" stroke="#F5C200" strokeWidth="1.5" strokeLinecap="round"/>
-                  <polyline points="15,2 18,2 18,5" stroke="#F5C200" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-md flex items-center justify-center flex-shrink-0" style={{ background: '#000', border: '1.5px solid #F5C200' }}>
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M3 10L10 3L17 10V17H13V13H7V17H3V10Z" stroke="#F5C200" strokeWidth="1.5" strokeLinejoin="round"/>
+                    <line x1="13" y1="7" x2="18" y2="2" stroke="#F5C200" strokeWidth="1.5" strokeLinecap="round"/>
+                    <polyline points="15,2 18,2 18,5" stroke="#F5C200" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <span className="font-headline font-bold text-white text-lg tracking-tight">
+                  Haeden Finance
+                </span>
               </div>
             )}
-            <span className="font-headline font-bold text-white text-lg tracking-tight">
-              {settings?.siteName || 'Haeden Finance'}
-            </span>
           </Link>
 
           {/* Desktop nav */}
