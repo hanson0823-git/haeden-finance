@@ -9,7 +9,8 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    const webhookUrl = process.env.GHL_WEBHOOK_URL;
+    // Use env var if set, otherwise fall back to the configured GHL webhook
+    const webhookUrl = process.env.GHL_WEBHOOK_URL || 'https://services.leadconnectorhq.com/hooks/oy1P2WdMfCKjEaiy32un/webhook-trigger/baAwKApRgpW4ZUuablmC';
 
     if (webhookUrl) {
       const payload = {
@@ -42,8 +43,6 @@ export async function POST(request) {
         // Log but don't fail the form submission
         console.error('GHL webhook call failed:', webhookErr.message);
       }
-    } else {
-      console.warn('GHL_WEBHOOK_URL not set — form submission not forwarded');
     }
 
     console.log('Contact form submission:', { firstName, lastName, email, situation });
