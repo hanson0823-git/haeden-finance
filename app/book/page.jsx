@@ -1,10 +1,23 @@
 'use client';
 
+import { useEffect } from 'react';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
-import Script from 'next/script';
 
 export default function BookPage() {
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://link.msgsndr.com/js/form_embed.js';
+    script.type = 'text/javascript';
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -27,15 +40,15 @@ export default function BookPage() {
           <div className="container-xl py-12" style={{ maxWidth: '860px' }}>
             <iframe
               src="https://api.leadconnectorhq.com/widget/booking/xbAWRdcBrAyMV5p9i6EV"
-              style={{ width: '100%', border: 'none', overflow: 'hidden', minHeight: '700px' }}
+              style={{ width: '100%', border: 'none', overflow: 'hidden' }}
               scrolling="no"
               id="xbAWRdcBrAyMV5p9i6EV_1775780505569"
+              height="700"
             />
           </div>
         </section>
       </main>
       <Footer />
-      <Script src="https://link.msgsndr.com/js/form_embed.js" strategy="lazyOnload" />
     </>
   );
 }
