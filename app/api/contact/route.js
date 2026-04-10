@@ -9,28 +9,35 @@ export async function POST(request) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
-    // Here you would integrate your email service (Resend, SendGrid, etc.)
-    // For now, we log and return success so the form works
-    console.log('Contact form submission:', {
-      name: `${firstName} ${lastName}`,
-      email,
-      situation,
-      message,
-      timestamp: new Date().toISOString(),
-    });
+    const webhookUrl = process.env.GHL_WEBHOOK_URL;
 
-    // Example: Resend integration
-    // const { Resend } = await import('resend');
-    // const resend = new Resend(process.env.RESEND_API_KEY);
-    // await resend.emails.send({
-    //   from: 'noreply@haedenfinance.com.au',
-    //   to: process.env.CONTACT_EMAIL,
-    //   subject: `New enquiry from ${firstName} ${lastName}`,
-    //   html: `<p><strong>Name:</strong> ${firstName} ${lastName}</p>
-    //          <p><strong>Email:</strong> ${email}</p>
-    //          <p><strong>Situation:</strong> ${situation}</p>
-    //          <p><strong>Message:</strong> ${message}</p>`,
-    // });
+    if (webhookUrl) {
+      const payload = {
+        first_name: firstName,
+        last_name: lastName,
+        email,
+        situation,
+        message,
+        // GHL standard contact fields
+        name: `${firstName} ${lastName}`.trim(),
+        source: 'Haeden Finance Website',
+        timestamp: new Date().toISOString(),
+      };
+
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+
+      if (!res.ok) {
+        console.error('GHL webhook error:', res.status, await res.text());
+      }
+    } else {
+      console.warn('GHL_WEBHOOK_URL not set — form submission not forwarded');
+    }
+
+    console.log('Contact form submission:', { firstName, lastName, email, situation });
 
     return NextResponse.json({ success: true });
   } catch (error) {
