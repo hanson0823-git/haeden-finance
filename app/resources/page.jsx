@@ -117,8 +117,8 @@ export default function ResourcesPage() {
             <p className="font-body text-lg mb-8" style={{ color: 'rgba(255,255,255,0.65)' }}>
               Book a free consultation and let's talk about your property goals.
             </p>
-            <a href="/#contact" className="btn-gold text-base">
-              Book a Free Chat
+            <a href="/book" className="btn-gold text-base">
+              Book a Free Consultation
               <span className="material-symbols-outlined text-xl">arrow_forward</span>
             </a>
           </div>

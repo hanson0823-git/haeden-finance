@@ -76,11 +76,10 @@ export default function Navbar({ settings }) {
           {/* CTA + hamburger */}
           <div className="flex items-center gap-3">
             <a
-              href="#contact"
-              onClick={e => handleNavClick(e, '#contact')}
+              href="/book"
               className="hidden md:inline-flex items-center btn-gold text-sm py-2.5 px-5"
             >
-              Book a Free Chat
+              Book a Free Consultation
             </a>
             <button
               className="md:hidden flex items-center justify-center w-10 h-10 text-white"
@@ -115,11 +114,10 @@ export default function Navbar({ settings }) {
             </a>
           ))}
           <a
-            href="#contact"
-            onClick={e => handleNavClick(e, '#contact')}
+            href="/book"
             className="btn-gold mt-4 justify-center"
           >
-            Book a Free Chat
+            Book a Free Consultation
           </a>
         </div>
       </div>

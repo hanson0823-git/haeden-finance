@@ -21,7 +21,7 @@ export default defineType({
       },
       initialValue: 'dark',
     }),
-    defineField({ name: 'isCta', title: 'Is CTA Card (shows "Book a Free Chat" button)', type: 'boolean', initialValue: false }),
+    defineField({ name: 'isCta', title: 'Is CTA Card (shows "Book a Free Consultation" button)', type: 'boolean', initialValue: false }),
     defineField({ name: 'order', title: 'Display Order', type: 'number', initialValue: 0 }),
   ],
   orderings: [{ title: 'Order', name: 'orderAsc', by: [{ field: 'order', direction: 'asc' }] }],

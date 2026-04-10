@@ -4,7 +4,7 @@ export default defineType({
   name: 'siteSettings',
   title: 'Site Settings',
   type: 'document',
-  __experimental_actions: ['update', 'publish'],
+  __experimental_actions: ['create', 'update', 'publish'],
   fields: [
     // Branding
     defineField({ name: 'siteName', title: 'Site Name', type: 'string', initialValue: 'Haeden Finance' }),
