@@ -3,7 +3,66 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import ReactMarkdown from 'react-markdown';
+import { PortableText } from '@portabletext/react';
+
+const portableTextComponents = {
+  block: {
+    h1: ({ children }) => <h1 className="font-headline font-bold text-2xl mb-3 mt-5" style={{ color: '#0D1B2A' }}>{children}</h1>,
+    h2: ({ children }) => <h2 className="font-headline font-bold text-xl mb-3 mt-4" style={{ color: '#0D1B2A' }}>{children}</h2>,
+    h3: ({ children }) => <h3 className="font-headline font-bold text-lg mb-2 mt-3" style={{ color: '#0D1B2A' }}>{children}</h3>,
+    normal: ({ children }) => <p className="mb-3" style={{ color: '#5A5A6A' }}>{children}</p>,
+    blockquote: ({ children }) => (
+      <blockquote className="border-l-4 pl-4 italic my-4" style={{ borderColor: '#F5C200', color: '#5A5A6A' }}>
+        {children}
+      </blockquote>
+    ),
+  },
+  marks: {
+    strong: ({ children }) => <strong style={{ color: '#0D1B2A' }}>{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    link: ({ value, children }) => (
+      <a href={value?.href} className="underline" style={{ color: '#C69B00' }} target="_blank" rel="noopener noreferrer">
+        {children}
+      </a>
+    ),
+  },
+  list: {
+    bullet: ({ children }) => <ul className="list-disc pl-5 mb-3 space-y-1" style={{ color: '#5A5A6A' }}>{children}</ul>,
+    number: ({ children }) => <ol className="list-decimal pl-5 mb-3 space-y-1" style={{ color: '#5A5A6A' }}>{children}</ol>,
+  },
+  listItem: {
+    bullet: ({ children }) => <li className="mb-1">{children}</li>,
+    number: ({ children }) => <li className="mb-1">{children}</li>,
+  },
+  types: {
+    image: ({ value }) => value?.asset?.url ? (
+      <img src={value.asset.url} alt={value.alt || ''} className="rounded-lg my-4 w-full object-cover" />
+    ) : null,
+    table: ({ value }) => (
+      <div className="overflow-x-auto my-5 rounded-lg" style={{ border: '1px solid #E0E0E8' }}>
+        <table className="w-full text-sm border-collapse">
+          <tbody>
+            {value.rows?.map((row, i) => (
+              <tr key={row._key || i} style={{ background: i === 0 ? '#0D1B2A' : i % 2 === 0 ? '#F8F8FB' : 'white' }}>
+                {row.cells?.map((cell, j) => (
+                  i === 0 ? (
+                    <th key={j} className="px-4 py-2.5 text-left font-bold text-sm" style={{ color: '#F5C200', borderBottom: '2px solid #F5C200' }}>
+                      {cell}
+                    </th>
+                  ) : (
+                    <td key={j} className="px-4 py-2.5" style={{ color: '#5A5A6A', borderBottom: '1px solid #E0E0E8' }}>
+                      {cell}
+                    </td>
+                  )
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    ),
+  },
+};
 
 export const defaultArticles = [
   { _id: '1', category: 'First Home Buyers', title: 'The Complete Guide to Your First Home Loan in 2024', summary: 'Everything you need to know about buying your first home in Australia — from saving your deposit to getting the keys. Includes government grants and schemes.', icon: 'home', bg: 'navy' },
@@ -52,25 +111,9 @@ export function ArticleModal({ article, onClose }) {
           <p className="font-body text-sm leading-relaxed" style={{ color: '#5A5A6A' }}>
             {article.summary}
           </p>
-          {article.content && (
-            <div className="mt-6 font-body text-sm leading-relaxed prose prose-sm max-w-none"
-              style={{ color: '#5A5A6A' }}>
-              <ReactMarkdown
-                components={{
-                  h1: ({children}) => <h1 className="font-headline font-bold text-2xl mb-3 mt-5" style={{ color: '#0D1B2A' }}>{children}</h1>,
-                  h2: ({children}) => <h2 className="font-headline font-bold text-xl mb-3 mt-4" style={{ color: '#0D1B2A' }}>{children}</h2>,
-                  h3: ({children}) => <h3 className="font-headline font-bold text-lg mb-2 mt-3" style={{ color: '#0D1B2A' }}>{children}</h3>,
-                  p:  ({children}) => <p className="mb-3" style={{ color: '#5A5A6A' }}>{children}</p>,
-                  strong: ({children}) => <strong style={{ color: '#0D1B2A' }}>{children}</strong>,
-                  ul: ({children}) => <ul className="list-disc pl-5 mb-3 space-y-1">{children}</ul>,
-                  ol: ({children}) => <ol className="list-decimal pl-5 mb-3 space-y-1">{children}</ol>,
-                  li: ({children}) => <li style={{ color: '#5A5A6A' }}>{children}</li>,
-                  blockquote: ({children}) => <blockquote className="border-l-4 pl-4 italic my-3" style={{ borderColor: '#F5C200', color: '#5A5A6A' }}>{children}</blockquote>,
-                  a: ({href, children}) => <a href={href} className="underline" style={{ color: '#C69B00' }} target="_blank" rel="noopener noreferrer">{children}</a>,
-                }}
-              >
-                {article.content}
-              </ReactMarkdown>
+          {article.content && Array.isArray(article.content) && article.content.length > 0 && (
+            <div className="mt-6 font-body text-sm leading-relaxed">
+              <PortableText value={article.content} components={portableTextComponents} />
             </div>
           )}
         </div>
