@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "blog-agent": "node --env-file=.env.local scripts/blog-agent.mjs"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.52.0",
     "@portabletext/react": "^6.0.3",
     "@sanity/client": "^7.20.0",
     "@sanity/image-url": "^2.1.1",
@@ -24,6 +26,7 @@
     "@tailwindcss/forms": "^0.5.11",
     "@tailwindcss/postcss": "^4.2.2",
     "autoprefixer": "^10.4.27",
+    "dotenv": "^16.6.1",
     "next": "^16.2.2",
     "next-sanity": "^12.2.1",
     "postcss": "^8.5.8",
