@@ -10,6 +10,8 @@ import ResourcesSection from '../components/ResourcesSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
 
+export const revalidate = 60;
+
 async function getData() {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
 
@@ -18,12 +20,13 @@ async function getData() {
   }
 
   try {
+    const fetchOpts = { next: { revalidate: 60 } };
     const [services, testimonials, articles, settings, challengeCards] = await Promise.all([
-      client.fetch(servicesQuery),
-      client.fetch(testimonialsQuery),
-      client.fetch(articlesQuery),
-      client.fetch(settingsQuery),
-      client.fetch(challengeCardsQuery),
+      client.fetch(servicesQuery, {}, fetchOpts),
+      client.fetch(testimonialsQuery, {}, fetchOpts),
+      client.fetch(articlesQuery, {}, fetchOpts),
+      client.fetch(settingsQuery, {}, fetchOpts),
+      client.fetch(challengeCardsQuery, {}, fetchOpts),
     ]);
     return { services, testimonials, articles, settings, challengeCards };
   } catch (error) {

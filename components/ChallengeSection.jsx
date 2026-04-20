@@ -104,11 +104,11 @@ export default function ChallengeSection({ challengeCards }) {
 
                 {ch.isCta && (
                   <a
-                    href="#contact"
+                    href="/book"
                     className="mt-6 inline-flex items-center gap-2 font-headline font-bold text-sm"
                     style={{ color: '#0D1B2A' }}
                   >
-                    Book a Free Chat
+                    Book a Free Consultation
                     <span className="material-symbols-outlined text-base">arrow_forward</span>
                   </a>
                 )}
