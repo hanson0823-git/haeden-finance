@@ -9,7 +9,6 @@ const navLinks = [
   { label: 'How It Works', href: '#process' },
   { label: 'Testimonials', href: '#reviews' },
   { label: 'Resources', href: '#resources' },
-  { label: 'Contact', href: '#contact' },
 ];
 
 export default function Navbar({ settings }) {
@@ -27,12 +26,10 @@ export default function Navbar({ settings }) {
     setMenuOpen(false);
     const target = document.querySelector(href);
     if (target) {
-      // On homepage — smooth scroll to section
       const offset = 72;
       const top = target.getBoundingClientRect().top + window.scrollY - offset;
       window.scrollTo({ top, behavior: 'smooth' });
     } else {
-      // On a sub-page — navigate to homepage with the hash
       window.location.href = '/' + href;
     }
   };
@@ -78,13 +75,14 @@ export default function Navbar({ settings }) {
             ))}
           </nav>
 
-          {/* CTA + hamburger */}
+          {/* CTA: Contact button (gold) + hamburger */}
           <div className="flex items-center gap-3">
             <a
-              href="/book"
+              href="#contact"
+              onClick={e => handleNavClick(e, '#contact')}
               className="hidden md:inline-flex items-center btn-gold text-sm py-2.5 px-5"
             >
-              Book a Free Consultation
+              Contact
             </a>
             <button
               className="md:hidden flex items-center justify-center w-10 h-10 text-white"
@@ -119,10 +117,11 @@ export default function Navbar({ settings }) {
             </a>
           ))}
           <a
-            href="/book"
+            href="#contact"
+            onClick={e => handleNavClick(e, '#contact')}
             className="btn-gold mt-4 justify-center"
           >
-            Book a Free Consultation
+            Contact
           </a>
         </div>
       </div>
