@@ -48,15 +48,6 @@ const defaultServices = [
     order: 5,
   },
   {
-    _id: '6',
-    title: 'SMSF Loans',
-    description:
-      'Invest in property through your self-managed super fund with confidence. We navigate the complex SMSF lending landscape to grow your retirement wealth.',
-    icon: 'account_balance',
-    theme: 'navy',
-    order: 6,
-  },
-  {
     _id: '7',
     title: 'Debt Consolidation',
     description:
