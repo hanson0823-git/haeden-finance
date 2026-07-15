@@ -104,7 +104,7 @@ export default function ChallengeSection({ challengeCards }) {
 
                 {ch.isCta && (
                   <a
-                    href="/book"
+                    href="#contact"
                     className="mt-6 inline-flex items-center gap-2 font-headline font-bold text-sm"
                     style={{ color: '#0D1B2A' }}
                   >

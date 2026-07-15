@@ -1,6 +1,4 @@
 import { client, servicesQuery, testimonialsQuery, articlesQuery, settingsQuery, challengeCardsQuery } from '../lib/sanity';
-
-export const dynamic = 'force-dynamic'; // Always fetch fresh data from Sanity
 import Navbar from '../components/Navbar';
 import HeroSection from '../components/HeroSection';
 import PhilosophySection from '../components/PhilosophySection';
@@ -8,9 +6,12 @@ import ChallengeSection from '../components/ChallengeSection';
 import ServicesSection from '../components/ServicesSection';
 import ProcessSection from '../components/ProcessSection';
 import ReviewsSection from '../components/ReviewsSection';
+import FaqSection from '../components/FaqSection';
 import ResourcesSection from '../components/ResourcesSection';
 import ContactSection from '../components/ContactSection';
 import Footer from '../components/Footer';
+
+export const revalidate = 60;
 
 async function getData() {
   const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
@@ -20,7 +21,7 @@ async function getData() {
   }
 
   try {
-    const fetchOpts = { cache: 'no-store' };
+    const fetchOpts = { next: { revalidate: 60 } };
     const [services, testimonials, articles, settings, challengeCards] = await Promise.all([
       client.fetch(servicesQuery, {}, fetchOpts),
       client.fetch(testimonialsQuery, {}, fetchOpts),
@@ -48,6 +49,7 @@ export default async function HomePage() {
         <ServicesSection services={services} />
         <ProcessSection />
         <ReviewsSection testimonials={testimonials} />
+        <FaqSection />
         <ResourcesSection articles={articles} />
         <ContactSection settings={settings} />
       </main>

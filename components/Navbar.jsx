@@ -77,6 +77,15 @@ export default function Navbar({ settings }) {
 
           {/* CTA: Contact button (gold) + hamburger */}
           <div className="flex items-center gap-3">
+            {settings?.phone && (
+              <a
+                href={`tel:${settings.phone}`}
+                className="hidden lg:inline-flex items-center gap-2 font-body text-sm font-semibold text-white/80 hover:text-white transition-colors"
+              >
+                <span className="material-symbols-outlined text-lg" style={{ color: '#F5C200' }}>call</span>
+                {settings.phone}
+              </a>
+            )}
             <a
               href="#contact"
               onClick={e => handleNavClick(e, '#contact')}
@@ -116,6 +125,15 @@ export default function Navbar({ settings }) {
               {link.label}
             </a>
           ))}
+          {settings?.phone && (
+            <a
+              href={`tel:${settings.phone}`}
+              className="flex items-center gap-2 font-body text-sm font-semibold text-white/80 py-3 border-b border-white/5"
+            >
+              <span className="material-symbols-outlined text-lg" style={{ color: '#F5C200' }}>call</span>
+              {settings.phone}
+            </a>
+          )}
           <a
             href="#contact"
             onClick={e => handleNavClick(e, '#contact')}

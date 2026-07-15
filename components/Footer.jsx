@@ -4,12 +4,20 @@ export default function Footer({ settings }) {
   const companyName = settings?.footerCompanyName || settings?.siteName || 'Haeden Finance';
   const copyright = settings?.footerCopyright || `© ${new Date().getFullYear()} ${companyName}. All rights reserved.`;
 
+  const defaultUrls = ['/privacy', '/terms', '/credit-guide', '/disclosures'];
   const links = [
-    { label: settings?.footerLink1Label || 'Privacy Policy', href: settings?.footerLink1Url || '#' },
-    { label: settings?.footerLink2Label || 'Terms of Service', href: settings?.footerLink2Url || '#' },
-    { label: settings?.footerLink3Label || 'Credit Guide', href: settings?.footerLink3Url || '#' },
-    { label: settings?.footerLink4Label || 'Disclosures', href: settings?.footerLink4Url || '#' },
-  ];
+    { label: settings?.footerLink1Label || 'Privacy Policy', href: settings?.footerLink1Url },
+    { label: settings?.footerLink2Label || 'Terms of Service', href: settings?.footerLink2Url },
+    { label: settings?.footerLink3Label || 'Credit Guide', href: settings?.footerLink3Url },
+    { label: settings?.footerLink4Label || 'Disclosures', href: settings?.footerLink4Url },
+  ].map((link, i) => ({
+    ...link,
+    href: link.href && link.href !== '#' ? link.href : defaultUrls[i],
+  }));
+
+  const disclaimer =
+    settings?.footerDisclaimer ||
+    'Haeden Finance is an authorised credit representative. Australian Credit Licence applies.';
 
   return (
     <footer style={{ background: '#000' }}>
@@ -34,7 +42,7 @@ export default function Footer({ settings }) {
 
           {/* Disclaimer */}
           <p className="font-body text-xs text-center max-w-sm hidden lg:block" style={{ color: 'rgba(255,255,255,0.25)' }}>
-            Haeden Finance is an authorised credit representative. Australian Credit Licence applies.
+            {disclaimer}
           </p>
 
           {/* Links */}
@@ -54,7 +62,7 @@ export default function Footer({ settings }) {
 
         {/* Mobile disclaimer */}
         <p className="font-body text-xs text-center mt-6 lg:hidden" style={{ color: 'rgba(255,255,255,0.25)' }}>
-          Haeden Finance is an authorised credit representative. Australian Credit Licence applies.
+          {disclaimer}
         </p>
       </div>
     </footer>

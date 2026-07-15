@@ -5,14 +5,6 @@ import { createClient } from '@sanity/client';
 // Headers: { "x-import-secret": "<IMPORT_SECRET>", "Content-Type": "application/json" }
 // Body: article object (see scripts/import-article.js for structure)
 
-const writeClient = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-  apiVersion: '2024-01-01',
-  token: process.env.SANITY_TOKEN,
-  useCdn: false,
-});
-
 export async function POST(request) {
   // Simple secret key guard
   const secret = request.headers.get('x-import-secret');
@@ -23,6 +15,14 @@ export async function POST(request) {
   if (!process.env.SANITY_TOKEN) {
     return NextResponse.json({ error: 'SANITY_TOKEN not configured' }, { status: 500 });
   }
+
+  const writeClient = createClient({
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
+    apiVersion: '2024-01-01',
+    token: process.env.SANITY_TOKEN,
+    useCdn: false,
+  });
 
   try {
     const body = await request.json();

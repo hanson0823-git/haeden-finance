@@ -28,6 +28,13 @@ export default defineType({
 
     // Footer
     defineField({ name: 'footerCompanyName', title: 'Footer Company Name', type: 'string' }),
+    defineField({
+      name: 'footerDisclaimer',
+      title: 'Footer Licence Disclaimer',
+      description: 'e.g. "Haeden Finance Pty Ltd is a credit representative (CRN 123456) of XYZ Pty Ltd, Australian Credit Licence 987654."',
+      type: 'text',
+      rows: 2,
+    }),
     defineField({ name: 'footerCopyright', title: 'Footer Copyright Text', type: 'string' }),
     defineField({ name: 'footerLink1Label', title: 'Footer Link 1 Label', type: 'string', initialValue: 'Privacy Policy' }),
     defineField({ name: 'footerLink1Url', title: 'Footer Link 1 URL', type: 'string', initialValue: '#' }),
