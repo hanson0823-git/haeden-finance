@@ -1,59 +1,24 @@
-const defaultTestimonials = [
-  {
-    _id: '1',
-    name: 'Sarah & James Mitchell',
-    role: 'First Home Buyers, Sydney',
-    initials: 'SJ',
-    body: 'As first home buyers, we had no idea where to start. Haeden Finance held our hand through every step. They found us a rate we didn\'t think was possible on our budget, and we were in our home within 8 weeks. Truly exceptional service.',
-    featured: true,
-  },
-  {
-    _id: '2',
-    name: 'Michael Chen',
-    role: 'Property Investor, Melbourne',
-    initials: 'MC',
-    body: 'I\'ve worked with several brokers over the years, but Haeden Finance is on a different level. They restructured my entire portfolio and unlocked equity I didn\'t know I had. My borrowing capacity increased significantly. Highly recommended.',
-    featured: false,
-  },
-  {
-    _id: '3',
-    name: 'Priya Sharma',
-    role: 'Self-Employed Business Owner, Brisbane',
-    initials: 'PS',
-    body: 'Being self-employed, I\'d been knocked back twice by banks. Haeden Finance understood my financials immediately and had me approved within two weeks. They\'re experts at navigating complex situations. I can\'t thank them enough.',
-    featured: false,
-  },
-  {
-    _id: '4',
-    name: 'David & Emma Thompson',
-    role: 'Refinancers, Perth',
-    initials: 'DT',
-    body: 'We were paying too much on our mortgage for years. One call with Haeden Finance and they found us a deal that saves us $450 a month. They handled everything — we just signed the forms. Wish we\'d called them sooner!',
-    featured: true,
-  },
-  {
-    _id: '5',
-    name: 'Marcus Williams',
-    role: 'Construction Loan, Adelaide',
-    initials: 'MW',
-    body: 'Building our custom home seemed like a financial nightmare until Haeden stepped in. They managed the progressive drawdowns perfectly and kept us on budget. The communication was outstanding throughout.',
-    featured: false,
-  },
-  {
-    _id: '6',
-    name: 'Lisa Nguyen',
-    role: 'Investment Refinancing, Gold Coast',
-    initials: 'LN',
-    body: 'Haeden Finance helped me consolidate my investment portfolio into a smarter structure. Their knowledge of tax implications and loan structures is impressive. Professional, responsive, and genuinely care about your success.',
-    featured: false,
-  },
-];
-
-function StarRating() {
+function GoogleMark({ size = 20 }) {
   return (
-    <div className="flex gap-0.5 mb-4">
+    <svg width={size} height={size} viewBox="0 0 48 48" aria-label="Google">
+      <path fill="#FFC107" d="M43.6 20.1H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.3-.1-2.6-.4-3.9z"/>
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/>
+      <path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-7.9l-6.5 5C9.5 39.6 16.2 44 24 44z"/>
+      <path fill="#1976D2" d="M43.6 20.1H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.6-.4-3.9z"/>
+    </svg>
+  );
+}
+
+function Stars({ rating, size = 'text-base' }) {
+  const filled = Math.round(rating || 0);
+  return (
+    <div className="flex gap-0.5" aria-label={`${rating} out of 5 stars`}>
       {[1, 2, 3, 4, 5].map(i => (
-        <span key={i} className="material-symbols-outlined filled text-base" style={{ color: '#F5C200' }}>
+        <span
+          key={i}
+          className={`material-symbols-outlined filled ${size}`}
+          style={{ color: i <= filled ? '#F5C200' : '#D8D2C4' }}
+        >
           star
         </span>
       ))}
@@ -61,83 +26,118 @@ function StarRating() {
   );
 }
 
-function TestimonialCard({ testimonial }) {
-  const { featured, name, role, initials, body } = testimonial;
-
+function ReviewCard({ review }) {
   return (
-    <div
-      className={`rounded-2xl p-7 flex flex-col transition-transform duration-200 ${featured ? 'shadow-2xl scale-[1.02]' : 'shadow-md'}`}
-      style={{
-        background: featured ? '#0D1B2A' : 'white',
-        zIndex: featured ? 2 : 1,
-        position: 'relative',
-      }}
-    >
-      <StarRating />
+    <div className="rounded-2xl p-7 flex flex-col shadow-md" style={{ background: 'white' }}>
+      <div className="flex items-center justify-between mb-4">
+        <Stars rating={review.rating} />
+        <GoogleMark size={18} />
+      </div>
 
-      <blockquote
-        className="font-body text-sm leading-relaxed italic flex-1 mb-6"
-        style={{ color: featured ? 'rgba(255,255,255,0.82)' : '#5A5A6A' }}
-      >
-        "{body}"
-      </blockquote>
+      <p className="font-body text-sm leading-relaxed flex-1 mb-6 line-clamp-[8]" style={{ color: '#5A5A6A' }}>
+        {review.text}
+      </p>
 
       <div className="flex items-center gap-3">
-        <div
-          className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
-          style={{
-            background: featured ? '#F5C200' : '#0D1B2A',
-          }}
-        >
-          <span
-            className="font-headline font-bold text-xs"
-            style={{ color: featured ? '#0D1B2A' : '#F5C200' }}
-          >
-            {initials || name?.charAt(0) || '?'}
-          </span>
-        </div>
+        {review.authorPhoto ? (
+          <img
+            src={review.authorPhoto}
+            alt=""
+            referrerPolicy="no-referrer"
+            className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+          />
+        ) : (
+          <div className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: '#0D1B2A' }}>
+            <span className="font-headline font-bold text-xs" style={{ color: '#F5C200' }}>
+              {review.author.charAt(0)}
+            </span>
+          </div>
+        )}
         <div>
-          <p
-            className="font-headline font-bold text-sm"
-            style={{ color: featured ? 'white' : '#0D1B2A' }}
-          >
-            {name}
-          </p>
-          <p
-            className="font-body text-xs"
-            style={{ color: featured ? 'rgba(255,255,255,0.5)' : '#9A9AAA' }}
-          >
-            {role}
-          </p>
+          {review.authorUrl ? (
+            <a
+              href={review.authorUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="font-headline font-bold text-sm hover:underline"
+              style={{ color: '#0D1B2A' }}
+            >
+              {review.author}
+            </a>
+          ) : (
+            <p className="font-headline font-bold text-sm" style={{ color: '#0D1B2A' }}>{review.author}</p>
+          )}
+          <p className="font-body text-xs" style={{ color: '#9A9AAA' }}>{review.when}</p>
         </div>
       </div>
     </div>
   );
 }
 
-export default function ReviewsSection({ testimonials }) {
-  const items = testimonials && testimonials.length > 0 ? testimonials : defaultTestimonials;
+export default function ReviewsSection({ google, settings }) {
+  const reviewsUrl = google?.url || settings?.googleReviewsUrl;
+  const reviews = google?.reviews || [];
+
+  // Nothing real to show — hide the section rather than display placeholder reviews.
+  if (reviews.length === 0 && !reviewsUrl) return null;
 
   return (
     <section id="reviews" style={{ background: '#FAF6EE' }}>
       <div className="container-xl section-padding">
         {/* Header */}
         <div className="text-center mb-14">
-          <span className="section-label">Client Stories</span>
+          <span className="section-label">Client Reviews</span>
           <h2 className="font-headline font-extrabold text-4xl md:text-5xl leading-tight" style={{ color: '#0D1B2A' }}>
-            Voices of Partnership
+            What Our Clients Say
           </h2>
-          <p className="font-body text-lg mt-4 max-w-xl mx-auto" style={{ color: '#5A5A6A' }}>
-            Real stories from real clients who trusted us with one of life's biggest decisions.
-          </p>
+
+          {google?.rating ? (
+            <div className="inline-flex items-center gap-4 mt-8 rounded-2xl px-6 py-4 shadow-md" style={{ background: 'white' }}>
+              <GoogleMark size={32} />
+              <div className="text-left">
+                <div className="flex items-center gap-2">
+                  <span className="font-headline font-extrabold text-2xl" style={{ color: '#0D1B2A' }}>
+                    {google.rating.toFixed(1)}
+                  </span>
+                  <Stars rating={google.rating} size="text-lg" />
+                </div>
+                <p className="font-body text-xs" style={{ color: '#5A5A6A' }}>
+                  Based on {google.total} Google {google.total === 1 ? 'review' : 'reviews'}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p className="font-body text-lg mt-4 max-w-xl mx-auto" style={{ color: '#5A5A6A' }}>
+              Read what our clients say about working with us on Google.
+            </p>
+          )}
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-          {items.map(t => (
-            <TestimonialCard key={t._id} testimonial={t} />
-          ))}
-        </div>
+        {/* Review cards */}
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            {reviews.map(r => (
+              <ReviewCard key={r.id} review={r} />
+            ))}
+          </div>
+        )}
+
+        {/* Link to Google profile */}
+        {reviewsUrl && (
+          <div className="text-center mt-12">
+            <a
+              href={reviewsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 font-headline font-bold text-base rounded-xl px-6 py-3.5 transition-colors"
+              style={{ background: '#0D1B2A', color: 'white' }}
+            >
+              <GoogleMark size={20} />
+              Read all reviews on Google
+              <span className="material-symbols-outlined text-xl">arrow_outward</span>
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

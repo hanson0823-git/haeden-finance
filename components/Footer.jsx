@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { licenceStatement } from '../lib/compliance';
 
 export default function Footer({ settings }) {
   const companyName = settings?.footerCompanyName || settings?.siteName || 'Haeden Finance';
@@ -15,9 +16,7 @@ export default function Footer({ settings }) {
     href: link.href && link.href !== '#' ? link.href : defaultUrls[i],
   }));
 
-  const disclaimer =
-    settings?.footerDisclaimer ||
-    'Haeden Finance is an authorised credit representative. Australian Credit Licence applies.';
+  const disclaimer = licenceStatement(settings);
 
   return (
     <footer style={{ background: '#000' }}>
@@ -41,7 +40,7 @@ export default function Footer({ settings }) {
           </div>
 
           {/* Disclaimer */}
-          <p className="font-body text-xs text-center max-w-sm hidden lg:block" style={{ color: 'rgba(255,255,255,0.25)' }}>
+          <p className="font-body text-xs text-center max-w-sm hidden lg:block" style={{ color: 'rgba(255,255,255,0.45)' }}>
             {disclaimer}
           </p>
 
@@ -61,7 +60,7 @@ export default function Footer({ settings }) {
         </div>
 
         {/* Mobile disclaimer */}
-        <p className="font-body text-xs text-center mt-6 lg:hidden" style={{ color: 'rgba(255,255,255,0.25)' }}>
+        <p className="font-body text-xs text-center mt-6 lg:hidden" style={{ color: 'rgba(255,255,255,0.45)' }}>
           {disclaimer}
         </p>
       </div>

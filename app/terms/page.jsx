@@ -1,4 +1,5 @@
-import LegalPage, { getSettings, LegalHeading, LegalParagraph, LegalList } from '../../components/LegalPage';
+import LegalPage, { getSettings, LegalHeading, LegalParagraph, LEGAL_UPDATED } from '../../components/LegalPage';
+import { getLicence } from '../../lib/compliance';
 
 export const revalidate = 60;
 
@@ -11,12 +12,13 @@ export const metadata = {
 
 export default async function TermsPage() {
   const settings = await getSettings();
-  const email = settings?.email || 'hello@haedenfinance.com.au';
+  const licence = getLicence(settings);
+  const email = licence.email;
 
   return (
-    <LegalPage settings={settings} title="Terms of Service" updated="July 2026">
+    <LegalPage settings={settings} title="Terms of Service" updated={LEGAL_UPDATED}>
       <LegalParagraph>
-        By accessing and using the Haeden Finance website ("the site"), you agree to the following terms and
+        By accessing and using the {licence.entity} website ("the site"), you agree to the following terms and
         conditions. If you do not agree with these terms, please do not use the site.
       </LegalParagraph>
 
@@ -37,7 +39,7 @@ export default async function TermsPage() {
 
       <LegalHeading>Our services</LegalHeading>
       <LegalParagraph>
-        Haeden Finance provides credit assistance services as a credit representative. Details of our services,
+        {licence.entity} provides credit assistance services as an authorised credit representative. Details of our services,
         how we are remunerated, and our dispute resolution processes are set out in our Credit Guide.
       </LegalParagraph>
 

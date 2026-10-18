@@ -61,3 +61,37 @@ export function LegalList({ items }) {
     </ul>
   );
 }
+
+// Key licensing details from site settings; rows without a value are omitted.
+export function LicenceDetails({ licence }) {
+  const rows = [
+    ['Business name', licence.entity],
+    ['ABN', licence.abn],
+    ['Credit Representative Number', licence.crn],
+    ['Licensee', licence.licensee],
+    ['Australian Credit Licence', licence.acl],
+    ['AFCA membership number', licence.afca],
+    ['Email', licence.email],
+    ['Phone', licence.phone],
+    ['Address', licence.address],
+  ].filter(([, value]) => value);
+
+  return (
+    <div className="rounded-xl overflow-hidden my-6" style={{ border: '1px solid #E0D9C8', background: 'white' }}>
+      <table className="w-full text-sm">
+        <tbody>
+          {rows.map(([label, value]) => (
+            <tr key={label} style={{ borderBottom: '1px solid #F0EAD8' }}>
+              <th className="text-left font-headline font-bold px-5 py-3 w-1/2 align-top" style={{ color: '#0D1B2A' }}>
+                {label}
+              </th>
+              <td className="px-5 py-3">{value}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+export const LEGAL_UPDATED = 'October 2026';

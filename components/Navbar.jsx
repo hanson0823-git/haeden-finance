@@ -7,11 +7,12 @@ const navLinks = [
   { label: 'Our Philosophy', href: '#philosophy' },
   { label: 'Services', href: '#services' },
   { label: 'How It Works', href: '#process' },
-  { label: 'Testimonials', href: '#reviews' },
+  { label: 'Reviews', href: '#reviews' },
   { label: 'Resources', href: '#resources' },
 ];
 
-export default function Navbar({ settings }) {
+export default function Navbar({ settings, showReviews = true }) {
+  const links = showReviews ? navLinks : navLinks.filter(l => l.href !== '#reviews');
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -63,7 +64,7 @@ export default function Navbar({ settings }) {
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-6">
-            {navLinks.map(link => (
+            {links.map(link => (
               <a
                 key={link.href}
                 href={link.href}
@@ -115,7 +116,7 @@ export default function Navbar({ settings }) {
         }}
       >
         <div className="container-xl py-4 flex flex-col gap-1 border-t border-white/10">
-          {navLinks.map(link => (
+          {links.map(link => (
             <a
               key={link.href}
               href={link.href}

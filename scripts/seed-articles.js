@@ -15,13 +15,6 @@ const services = [
   { _type: 'service', order: 4, title: 'Construction & Renovation', description: 'Funding for your dream build. We manage progress payments and lender requirements so you can focus entirely on the design.', icon: 'architecture', theme: 'gold' },
   { _type: 'service', order: 5, title: 'Debt Consolidation', description: 'Simplify your finances by rolling multiple debts into one manageable repayment — reducing stress and often your total interest paid.', icon: 'merge_type', theme: 'navy' },
   { _type: 'service', order: 6, title: 'Asset Finance', description: 'Equipment, vehicles, and business assets — we find the right finance structure to grow your business without straining your cash flow.', icon: 'directions_car', theme: 'white' },
-  { _type: 'service', order: 7, title: 'SMSF Loans', description: 'Grow your retirement wealth through property. We specialise in SMSF lending with lenders who understand the complexities of self-managed super.', icon: 'assured_workload', theme: 'white' },
-];
-
-const testimonials = [
-  { _type: 'testimonial', name: 'Marcus & Sarah T.', role: 'New Farm Homeowners', initials: 'MS', body: "The level of advocacy was something we hadn't experienced before. Haeden Finance didn't just find a loan — they fought hard when our bank was being difficult.", featured: false },
-  { _type: 'testimonial', name: 'David R.', role: 'Property Investor', initials: 'DR', body: 'Absolute professionals. They managed our complex investment property finance with zero stress. Haeden is our lifelong financial architect.', featured: true },
-  { _type: 'testimonial', name: 'Elena K.', role: 'First Home Buyer, Paddington', initials: 'EK', body: 'As a first home buyer I was terrified of the process. The transparency and genuine care I received made it clear that Haeden was invested in my success — not just my transaction.', featured: false },
 ];
 
 const challengeCards = [
@@ -47,12 +40,6 @@ async function seed() {
   for (const item of services) {
     const result = await client.create(item);
     console.log(`  ✓ ${result.title}`);
-  }
-
-  console.log('\nSeeding testimonials...');
-  for (const item of testimonials) {
-    const result = await client.create(item);
-    console.log(`  ✓ ${result.name}`);
   }
 
   console.log('\nSeeding Who We Help cards...');

@@ -26,12 +26,35 @@ export default defineType({
     defineField({ name: 'email', title: 'Email Address', type: 'string' }),
     defineField({ name: 'phone', title: 'Phone Number', type: 'string' }),
 
+    // Reviews
+    defineField({
+      name: 'googleReviewsUrl',
+      title: 'Google Reviews Link',
+      description: 'Link to your Google Business Profile reviews. Used for the "Read all reviews on Google" button.',
+      type: 'url',
+    }),
+
+    // Licensing & compliance — shown in the footer, Credit Guide and Disclosures pages
+    defineField({ name: 'legalEntityName', title: 'Legal Entity Name', type: 'string', description: 'e.g. Haeden Finance Pty Ltd' }),
+    defineField({ name: 'abn', title: 'ABN', type: 'string' }),
+    defineField({ name: 'creditRepNumber', title: 'Credit Representative Number (CRN)', type: 'string' }),
+    defineField({ name: 'licenseeName', title: 'Licensee (Aggregator) Name', type: 'string', description: 'The company that holds the Australian Credit Licence you operate under' }),
+    defineField({ name: 'aclNumber', title: 'Australian Credit Licence (ACL) Number', type: 'string' }),
+    defineField({ name: 'afcaMemberNumber', title: 'AFCA Membership Number', type: 'string' }),
+    defineField({
+      name: 'topLenders',
+      title: 'Most-Used Lenders (Credit Guide)',
+      description: 'The lenders you most frequently arranged loans with over the last financial year, as required in your Credit Guide.',
+      type: 'array',
+      of: [{ type: 'string' }],
+    }),
+
     // Footer
     defineField({ name: 'footerCompanyName', title: 'Footer Company Name', type: 'string' }),
     defineField({
       name: 'footerDisclaimer',
-      title: 'Footer Licence Disclaimer',
-      description: 'e.g. "Haeden Finance Pty Ltd is a credit representative (CRN 123456) of XYZ Pty Ltd, Australian Credit Licence 987654."',
+      title: 'Footer Licence Disclaimer (override)',
+      description: 'Optional. Leave blank to build it automatically from the licensing fields above.',
       type: 'text',
       rows: 2,
     }),
