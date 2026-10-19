@@ -1,6 +1,5 @@
 // scripts/backfill-hoju.js — one-off: English versions of already-published 호주주민 posts.
 // Same rules as the webhook (lib/hojuSync.js): review PASS → live, ISSUES → draft + email.
-// Also moves the original Knowledge Hub articles into the new categories.
 //
 // Usage (from the repo root, with ANTHROPIC_API_KEY, SANITY_TOKEN and RESEND_API_KEY in your shell):
 //   node scripts/backfill-hoju.js --dry-run --limit 1   translate + review, write nothing, save previews to ./hoju-dry-run
@@ -10,7 +9,6 @@
 import fs from 'node:fs';
 import { createClient } from '@sanity/client';
 import { syncPost } from '../lib/hojuSync.js';
-import { getWriteClient } from '../lib/sanityWrite.js';
 
 const args = process.argv.slice(2);
 const flag = name => args.includes(name);
@@ -19,15 +17,6 @@ const dryRun = flag('--dry-run');
 const force = flag('--force');
 const limit = Number(value('--limit')) || Infinity;
 const onlyId = value('--id');
-
-// Original Knowledge Hub articles → mirrored categories (approved mapping).
-const EXISTING_CATEGORIES = {
-  SEWs67Ptza5jLICkpJOEye: 'Home Loans', // The Complete Guide to Your First Home Loan
-  SEWs67Ptza5jLICkpJOTmv: 'Home Loans', // 5 Signs It's Time to Refinance Your Home Loan
-  SEWs67Ptza5jLICkpJS1Ed: 'Home Loans', // How to Maximise Your Borrowing Power as a Property Investor
-  zI6Y7r4MbyZUfGLNfINsZ3: 'Building a New Home', // Construction Loans Explained
-  zI6Y7r4MbyZUfGLNfIO3Im: 'Home Loans', // Getting a Mortgage When You're Self-Employed
-};
 
 function toMarkdown(doc) {
   const text = b => (b.children || []).map(c => {
@@ -44,12 +33,6 @@ function toMarkdown(doc) {
 }
 
 async function main() {
-  if (!dryRun) {
-    const tx = getWriteClient().transaction();
-    for (const [id, category] of Object.entries(EXISTING_CATEGORIES)) tx.patch(id, p => p.set({ category }));
-    await tx.commit({ visibility: 'async' }).then(() => console.log('✓ Existing articles moved into the new categories'));
-  }
-
   const source = createClient({ projectId: 'kkawsldi', dataset: 'production', apiVersion: '2024-01-01', useCdn: false });
   const ids = onlyId ? [onlyId] : await source.fetch('*[_type == "post"] | order(publishedAt asc)._id');
   if (dryRun) fs.mkdirSync('hoju-dry-run', { recursive: true });
