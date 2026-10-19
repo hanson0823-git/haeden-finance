@@ -20,7 +20,7 @@ export async function POST(request) {
             'Authorization': `Bearer ${resendApiKey}`,
           },
           body: JSON.stringify({
-            from: 'Haeden Finance <onboarding@resend.dev>',
+            from: process.env.RESEND_FROM || 'Haeden Finance <onboarding@resend.dev>',
             to: 'hanson@haedenfinance.com.au',
             reply_to: email,
             subject: `New enquiry from ${firstName} ${lastName}`,
