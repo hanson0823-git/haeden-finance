@@ -1,18 +1,30 @@
 // scripts/send-hoju-webhook.js — sends the same signed request the Sanity webhook sends, for one post.
 // Use it to test a preview deployment or to re-sync one post on demand.
 //
-//   HOJU_WEBHOOK_SECRET=... node scripts/send-hoju-webhook.js <site-url> <post-id>
+//   node scripts/send-hoju-webhook.js <site-url> <post-id>
+//
+// The secret comes from HOJU_WEBHOOK_SECRET, or else from the macOS Keychain item "hoju-webhook-secret".
+// Save it there once (prompts hidden): security add-generic-password -U -a hoju -s hoju-webhook-secret -w
 //   e.g. node scripts/send-hoju-webhook.js https://haeden-finance-homepage-xxx.vercel.app post-e-13
 //
 // Preview deployments sit behind Vercel login; set VERCEL_AUTOMATION_BYPASS_SECRET
 // (Project → Settings → Deployment Protection → Protection Bypass for Automation) to get through.
 
+import { execFileSync } from 'node:child_process';
 import { encodeSignatureHeader, SIGNATURE_HEADER_NAME } from '@sanity/webhook';
 
 const [site, postId] = process.argv.slice(2);
-const secret = process.env.HOJU_WEBHOOK_SECRET;
+function keychainSecret() {
+  try {
+    return execFileSync('security', ['find-generic-password', '-s', 'hoju-webhook-secret', '-w'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim();
+  } catch {
+    return '';
+  }
+}
+
+const secret = process.env.HOJU_WEBHOOK_SECRET || keychainSecret();
 if (!site || !postId || !secret) {
-  console.error('Usage: HOJU_WEBHOOK_SECRET=... node scripts/send-hoju-webhook.js <site-url> <post-id>');
+  console.error('Usage: node scripts/send-hoju-webhook.js <site-url> <post-id>  (secret from HOJU_WEBHOOK_SECRET or Keychain item "hoju-webhook-secret")');
   process.exit(1);
 }
 
