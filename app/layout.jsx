@@ -91,6 +91,13 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {process.env.VERCEL && (
+          <>
+            {/* Vercel Web Analytics via plain script tag; must be enabled in the Vercel dashboard (Analytics tab). */}
+            <script dangerouslySetInnerHTML={{ __html: 'window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}' }} />
+            <script defer src="/_vercel/insights/script.js" />
+          </>
+        )}
         {GA_ID && (
           <>
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
