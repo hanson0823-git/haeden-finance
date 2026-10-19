@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { createClient } from '@sanity/client';
+import { getWriteClient } from '../../../lib/sanityWrite';
 
 // POST https://haedenfinance.com.au/api/import-article
 // Headers: { "x-import-secret": "<IMPORT_SECRET>", "Content-Type": "application/json" }
@@ -12,19 +12,8 @@ export async function POST(request) {
     return NextResponse.json({ error: 'Unauthorised' }, { status: 401 });
   }
 
-  if (!process.env.SANITY_TOKEN) {
-    return NextResponse.json({ error: 'SANITY_TOKEN not configured' }, { status: 500 });
-  }
-
-  const writeClient = createClient({
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || 'production',
-    apiVersion: '2024-01-01',
-    token: process.env.SANITY_TOKEN,
-    useCdn: false,
-  });
-
   try {
+    const writeClient = getWriteClient();
     const body = await request.json();
     const article = { _type: 'article', ...body };
     const result = await writeClient.create(article);

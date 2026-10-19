@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { ArticleCard, ArticleModal, defaultArticles } from '../../components/ResourcesSection';
+import { CATEGORIES } from '../../lib/categories';
 
 export default function ResourcesClient() {
   const [articles, setArticles] = useState([]);
@@ -25,8 +26,6 @@ export default function ResourcesClient() {
     }
     fetchArticles();
   }, []);
-
-  const categories = ['All', ...Array.from(new Set(articles.map(a => a.category).filter(Boolean)))];
 
   const filtered = articles.filter(a => {
     const matchesCategory = activeCategory === 'All' || a.category === activeCategory;
@@ -65,27 +64,34 @@ export default function ResourcesClient() {
       {/* Articles */}
       <section style={{ background: '#F0EAD8' }}>
         <div className="container-xl section-padding">
-          {/* Category filter */}
-          <div className="flex flex-wrap gap-2 mb-10">
-            {categories.map(cat => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className="font-headline font-bold text-sm px-4 py-2 rounded-full transition-all duration-200"
-                style={{
-                  background: activeCategory === cat ? '#0D1B2A' : 'white',
-                  color: activeCategory === cat ? 'white' : '#0D1B2A',
-                }}
-              >
-                {cat}
-              </button>
-            ))}
+          {/* Category filter: same sections, in the same order, as the 호주주민 blog */}
+          <div className="flex flex-wrap items-center gap-2 mb-10">
+            <div role="group" aria-label="Filter by category" className="flex flex-wrap gap-2">
+              {[{ title: 'All' }, ...CATEGORIES].map(cat => {
+                const on = activeCategory === cat.title;
+                return (
+                  <button
+                    key={cat.title}
+                    type="button"
+                    aria-pressed={on}
+                    onClick={() => setActiveCategory(cat.title)}
+                    className="inline-flex items-center gap-2 h-[42px] font-headline font-bold text-sm px-4 rounded-full border transition-colors duration-200"
+                    style={{
+                      background: on ? '#0D1B2A' : 'white',
+                      color: on ? 'white' : '#0D1B2A',
+                      borderColor: on ? '#0D1B2A' : '#D3DCE6',
+                    }}
+                  >
+                    {cat.dot && <span className="h-2 w-2 rounded-full" style={{ background: cat.dot }} aria-hidden="true" />}
+                    {cat.title}
+                  </button>
+                );
+              })}
+            </div>
+            <p className="font-body text-sm sm:ml-auto" style={{ color: '#5A5A6A' }} aria-live="polite">
+              {filtered.length} {filtered.length === 1 ? 'article' : 'articles'}
+            </p>
           </div>
-
-          {/* Results count */}
-          <p className="font-body text-sm mb-8" style={{ color: '#5A5A6A' }}>
-            {filtered.length} {filtered.length === 1 ? 'article' : 'articles'} found
-          </p>
 
           {/* Grid */}
           {filtered.length > 0 ? (
