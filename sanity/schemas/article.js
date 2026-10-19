@@ -1,11 +1,12 @@
 import { defineType, defineField } from 'sanity';
+import { CATEGORY_TITLES } from '../../lib/categories';
 
 export default defineType({
   name: 'article',
   title: 'Article / Resource',
   type: 'document',
   fields: [
-    defineField({ name: 'category', title: 'Category', type: 'string', description: 'e.g. First Home Buyers, Investing, Refinancing' }),
+    defineField({ name: 'category', title: 'Category', type: 'string', options: { list: CATEGORY_TITLES, layout: 'radio' } }),
     defineField({ name: 'title', title: 'Title', type: 'string', validation: R => R.required() }),
     defineField({ name: 'summary', title: 'Summary', type: 'text', rows: 2 }),
     defineField({
@@ -73,6 +74,38 @@ export default defineType({
       initialValue: 'navy',
     }),
     defineField({ name: 'image', title: 'Article Header Image', type: 'image', options: { hotspot: true } }),
+    // Set by the 호주주민 sync (lib/hojuSync.js); empty for articles written here.
+    defineField({ name: 'sourcePostId', title: '호주주민 source post ID', type: 'string', readOnly: true }),
+    defineField({ name: 'sourceSlug', title: '호주주민 source slug', type: 'string', readOnly: true }),
+    defineField({ name: 'sourceHash', title: 'Source content hash', type: 'string', readOnly: true, hidden: true }),
+    defineField({
+      name: 'review',
+      title: 'Translation review',
+      type: 'object',
+      readOnly: true,
+      hidden: ({ document }) => !document?.review,
+      fields: [
+        defineField({ name: 'verdict', title: 'Verdict', type: 'string' }),
+        defineField({
+          name: 'issues',
+          title: 'Issues flagged',
+          type: 'array',
+          of: [{
+            type: 'object',
+            name: 'reviewIssue',
+            fields: [
+              defineField({ name: 'kind', title: 'Kind', type: 'string' }),
+              defineField({ name: 'detail', title: 'Detail', type: 'text', rows: 2 }),
+              defineField({ name: 'english', title: 'English', type: 'text', rows: 2 }),
+              defineField({ name: 'korean', title: 'Korean', type: 'text', rows: 2 }),
+            ],
+            preview: { select: { title: 'detail', subtitle: 'kind' } },
+          }],
+        }),
+        defineField({ name: 'model', title: 'Reviewer model', type: 'string' }),
+        defineField({ name: 'reviewedAt', title: 'Reviewed at', type: 'datetime' }),
+      ],
+    }),
   ],
   preview: { select: { title: 'title', subtitle: 'category' } },
 });
