@@ -1,6 +1,8 @@
 import './globals.css';
 
 const siteUrl = 'https://haedenfinance.com.au';
+// GA4 property www.haedenfinance.com.au (533031259); production deploys only so previews don't count as visits.
+const GA_ID = process.env.VERCEL_ENV === 'production' ? 'G-9R80R2QG12' : null;
 
 export const metadata = {
   metadataBase: new URL(siteUrl),
@@ -89,6 +91,16 @@ export default function RootLayout({ children }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        {GA_ID && (
+          <>
+            <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}')`,
+              }}
+            />
+          </>
+        )}
       </head>
       <body>{children}</body>
     </html>
