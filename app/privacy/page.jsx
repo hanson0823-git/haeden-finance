@@ -47,7 +47,7 @@ export default async function PrivacyPage() {
       <LegalParagraph>
         When you submit an enquiry on our website, the details you enter are collected through a form provided by
         our customer relationship management platform (GoHighLevel / LeadConnector) and may be emailed to us
-        through an email delivery service. Our website is hosted by Vercel. Like most websites, these services may
+        through an email delivery service. Our website is hosted by Vercel, and we use Vercel Web Analytics (which does not use cookies) to count page visits. Like most websites, these services may
         automatically record technical information such as your IP address, browser type, and pages visited.
       </LegalParagraph>
       <LegalParagraph>
