@@ -50,6 +50,12 @@ export default async function PrivacyPage() {
         through an email delivery service. Our website is hosted by Vercel. Like most websites, these services may
         automatically record technical information such as your IP address, browser type, and pages visited.
       </LegalParagraph>
+      <LegalParagraph>
+        We use Google Analytics (Google LLC) to understand how visitors use our website, such as which pages are
+        viewed and how visitors found us. Google Analytics uses cookies and receives information such as your IP
+        address and device details; we do not use it to identify you. You can block cookies in your browser
+        settings or install the Google Analytics opt-out browser add-on at tools.google.com/dlpage/gaoptout.
+      </LegalParagraph>
 
       <LegalHeading>How we use your information</LegalHeading>
       <LegalList
