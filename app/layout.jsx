@@ -94,7 +94,8 @@ export default function RootLayout({ children }) {
         {process.env.VERCEL && (
           <>
             {/* Vercel Web Analytics via plain script tag; must be enabled in the Vercel dashboard (Analytics tab). */}
-            <script dangerouslySetInnerHTML={{ __html: 'window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)}' }} />
+            {/* beforeSend drops Sanity Studio (/studio) page views so admin visits don't count. */}
+            <script dangerouslySetInnerHTML={{ __html: "window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};window.va('beforeSend',function(e){return new URL(e.url).pathname.startsWith('/studio')?null:e})" }} />
             <script defer src="/_vercel/insights/script.js" />
           </>
         )}
@@ -103,7 +104,7 @@ export default function RootLayout({ children }) {
             <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} />
             <script
               dangerouslySetInnerHTML={{
-                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','${GA_ID}')`,
+                __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}if(!location.pathname.startsWith('/studio')){gtag('js',new Date());gtag('config','${GA_ID}')}`,
               }}
             />
           </>
