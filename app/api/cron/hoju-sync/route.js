@@ -22,7 +22,8 @@ export async function GET(request) {
   const existing = await getWriteClient().fetch('*[_id in $ids]._id', { ids });
   const missing = missingPostIds(postIds, existing).slice(0, MAX_PER_RUN);
 
-  const syncUrl = new URL('/api/hoju-sync', request.url);
+  // The cron hits a *.vercel.app URL, which redirects to Vercel login; only the custom domain is public.
+  const syncUrl = 'https://haedenfinance.com.au/api/hoju-sync';
   const results = [];
   for (const postId of missing) {
     const body = JSON.stringify({ _id: postId });
