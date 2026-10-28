@@ -91,6 +91,12 @@ export default async function PrivacyPage() {
         information outside Australia, including in the United States. We take reasonable steps to ensure these
         providers handle your information consistently with the Australian Privacy Principles.
       </LegalParagraph>
+      <LegalParagraph>
+        The lenders, lenders&apos; mortgage insurers, and our licensee and aggregator that we disclose your
+        information to may also use service providers that store or process information overseas. Where they do,
+        their own privacy policies explain which countries are involved and how your information is protected. You
+        can ask us, or the relevant lender, for a copy of that policy.
+      </LegalParagraph>
 
       <LegalHeading>Dealing with us anonymously</LegalHeading>
       <LegalParagraph>
